@@ -1,0 +1,75 @@
+@import '@/app/mixins.scss';
+
+.introduction {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 70px - 50px);
+    background-color: white;
+    @include dflex(row, space-between, center, wrap);
+    padding: 70px 80px 30px 80px;
+
+    .introduction__content,
+    .introduction__graphics {
+        width: 50%;
+    }
+
+    .introduction__content {
+        small {
+            font-weight: 600;
+
+            span {
+                color: red
+            }
+        }
+
+        p {
+            margin: 10px 0 20px 0;
+        }
+
+        .content__button-wrapper {
+            width: 100%;
+
+            .button-wrapper__shop,
+            .button-wrapper__app {
+                max-width: 200px;
+                height: 40px;
+                display: inline-block;
+            }
+        }
+    }
+
+    .introduction__graphics {
+        @include dflex(row, flex-end, center, wrap);
+
+        img {
+            width: 60%;
+            height: auto;
+            filter: drop-shadow(16px 10px 15px 0px rgba(0, 0, 0, 0.8));
+        }
+    }
+}
+
+.hot-products {
+    position: relative;
+    width: 100vw;
+    height: 600px;
+    background-color: white;
+    margin-bottom: 1000px;
+
+    .soft-peach-background {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        z-index: 1;
+        background-color: var(--soft-peach);
+    }
+
+    .hot-products__list {
+        position: relative;
+        z-index: 2;
+        // direction - justify content - align items - flex wrap
+        @include dflex(row, space-evenly, flex-start, nowrap);
+    }
+}
