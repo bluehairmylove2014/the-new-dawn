@@ -5,6 +5,7 @@ import { Montserrat } from "next/font/google";
 import Footer from "@/components/organisms/Footer/Footer";
 import "@flaticon/flaticon-uicons/css/all/all.css";
 import { BusinessLogicProvider } from "@/modules/business-logic/provider";
+import { AppReduxProvider } from "@/storages/redux";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -24,9 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={montserrat.className}>
         <BusinessLogicProvider>
-          <Header />
-          {children}
-          <Footer />
+          <AppReduxProvider>
+            <Header />
+            {children}
+            <Footer />
+          </AppReduxProvider>
         </BusinessLogicProvider>
       </body>
     </html>

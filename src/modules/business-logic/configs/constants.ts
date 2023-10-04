@@ -16,4 +16,6 @@ export const SESSION_STORAGE_KEY = {
 export const COOKIE_KEY = {
   ACCESS_TOKEN: generateSecureHash("COOKIE_ACCESS_TOKEN"),
   REFRESH_TOKEN: generateSecureHash("COOKIE_REFRESH_TOKEN"),
+  CURRENCY_RATE: generateSecureHash("CURRENCY_RATE"),
+  CURRENCY_FORMAT: generateSecureHash("CURRENCY_FORMAT"),
 };

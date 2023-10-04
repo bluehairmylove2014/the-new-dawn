@@ -1,15 +1,21 @@
 import { AuthProvider } from "../lib/auth/process/provider";
 import { CartProvider } from "../lib/cart/process/provider";
+import { CurrencyProvider } from "../lib/currency/process/provider";
 
 export const authConfig = {
   isNeedRefreshToken: true,
   isNeedBroadcast: true,
 };
 export const mutationConfig = {
-  RETRY: 1,
+  RETRY: 0,
 };
 
 export const providerConfig = [
+  {
+    key: "currency",
+    provider: CurrencyProvider,
+    isActive: true,
+  },
   {
     key: "cart",
     provider: CartProvider,

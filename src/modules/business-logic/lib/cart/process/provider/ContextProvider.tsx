@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
-"use client";
 import React, { useEffect, useReducer } from "react";
 import { CartContext } from "../context/cartContext";
 import { cartReducer } from "../context/reducer";

@@ -52,16 +52,15 @@
 .hot-products {
     position: relative;
     width: 100vw;
-    height: 600px;
+    height: 580px;
     background-color: white;
-    margin-bottom: 1000px;
 
     .soft-peach-background {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 80%;
+        height: 90%;
         z-index: 1;
         background-color: var(--soft-peach);
     }
@@ -71,5 +70,144 @@
         z-index: 2;
         // direction - justify content - align items - flex wrap
         @include dflex(row, space-evenly, flex-start, nowrap);
+        gap: 1rem;
+    }
+}
+
+.guide {
+    margin: 2rem auto 7rem auto;
+    width: 100%;
+
+    h2 {
+        margin-bottom: 2rem;
+    }
+
+    .guide__steps {
+        // columns - row - gap
+        @include dgrid(repeat(3, 1fr), auto, 1rem);
+
+        .step {
+            // direction - justify content - align items - flex wrap
+            @include dflex(column, flex-start, center, nowrap);
+            text-align: center;
+            position: relative;
+
+            h3 {
+                margin: 0.5rem auto 0.5rem auto;
+            }
+
+            p {
+                max-width: 80%;
+            }
+
+            &:nth-child(2)::before,
+            &:nth-child(2)::after {
+                content: '';
+                background-image: url('../../assets/icons/right-arrow.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 2rem;
+                height: 30px;
+            }
+
+            &:nth-child(2)::before {
+                left: -1rem;
+            }
+
+            &:nth-child(2)::after {
+                right: -1rem;
+            }
+        }
+    }
+
+    .guide__button-wrapper {
+        margin: 2rem auto 1rem auto;
+        max-width: 200px;
+        height: 40px;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+}
+
+.information {
+    position: relative;
+    background-image: url('../../assets/bgs/sky-background.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: fit-content;
+
+    .information__article {
+        // columns - row - gap
+        @include dgrid(repeat(2, 1fr), auto, 2rem);
+        min-height: 400px;
+        width: 100%;
+        margin-bottom: 5rem;
+
+        .article__images--left,
+        .article__images--right {
+            $part-size: 47%;
+            position: relative;
+            width: 100%;
+
+            .image {
+                position: absolute;
+                width: $part-size;
+                height: 80%;
+                border-radius: 5px;
+                overflow: hidden;
+
+                img {
+                    object-fit: cover;
+                }
+
+                &:nth-child(1) {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                &:nth-child(2) {
+                    top: 0;
+                    right: 0;
+                }
+            }
+
+            .images__sort-description {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: $part-size;
+            }
+        }
+
+        .article__content--left,
+        .article__content--right {
+            strong {
+                color: red;
+                font-size: 0.75rem;
+            }
+
+            p {
+                margin: 0.5rem 0;
+            }
+
+            .content__action-button {
+                max-width: 200px;
+                height: 40px;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+        }
+
+        .article__images--left {
+            grid-column: 1;
+        }
+
+        .article__images--right {
+            grid-column: 2;
+        }
     }
 }

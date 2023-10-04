@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AxiosResponse } from "axios";
 import { updateAccountUrl } from "../../config/apis";
 import { getAxiosNormalInstance, isAxiosError } from "../../config/axios";

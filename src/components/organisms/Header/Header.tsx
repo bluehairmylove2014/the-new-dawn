@@ -12,6 +12,10 @@ import { useState } from "react";
 import currencyIcon from "@/assets/icons/dollar.png";
 import { useIsLogged } from "@/modules/business-logic/lib/auth";
 import { RANK } from "@/constants/ranks";
+import { useDispatch } from "react-redux";
+import { setLanguage } from "@/storages/redux";
+import { currencyType, languageType } from "@/storages/redux";
+import { useChangeCurrencyFormat } from "@/modules/business-logic/lib/currency";
 
 const Header = () => {
   const isLoggedIn = useIsLogged();
@@ -28,15 +32,26 @@ const Header = () => {
     country: "vi",
     rank: "free",
   };
+  const dispatch = useDispatch();
+  const { onChangeCurrencyFormat, isLoading } = useChangeCurrencyFormat();
 
   // Methods
-  const handleChangeLanguage = (value: string): void => {
+  const handleChangeLanguage = (value: languageType): void => {
     const selectLang = languageOptions.find((lo) => lo.value === value);
     selectLang && setSelectedLanguage(selectLang);
+    dispatch(setLanguage(value));
   };
-  const handleChangeCurrency = (value: string): void => {
+  const handleChangeCurrency = (value: currencyType): void => {
     const selectCur = moneyOptions.find((mo) => mo.value === value);
     selectCur && setSelectedCurrency(selectCur);
+    // dispatch(setCurrency(value));
+    onChangeCurrencyFormat(value)
+      .then((data) => {
+        console.log("OUT DATA: ", data);
+      })
+      .catch((error) => {
+        console.error("OUT ERROR: ", error);
+      });
   };
   const getRankIcon = (rank: string): StaticImageData => {
     return RANK[
@@ -105,7 +120,7 @@ const Header = () => {
               Cửa hàng
             </Link>
           </li>
-          {!isLoggedIn && userData ? (
+          {isLoggedIn && userData ? (
             <li className="user">
               <Link href={pageUrls.PRICING} className="user__rank">
                 <Image
@@ -131,7 +146,7 @@ const Header = () => {
               </Link>
             </li>
           ) : (
-            <li>
+            <li className="login-button">
               <CommonButton style="fill">Đăng nhập</CommonButton>
             </li>
           )}
