@@ -1,20 +1,25 @@
 "use client";
+
 import Image from "next/image";
 import "./styles.scss";
-import { CommonButton } from "@/components/atoms/CommonButton";
+import { CommonButton } from "@/components/atoms/CommonButton/CommonButton";
 import { IProduct } from "@/modules/services/entities";
-import ProductCard from "@/components/molecules/ProductCard";
+import ProductCard from "@/components/molecules/ProductCard/ProductCard";
 
 import guideStepIcon1 from "@/assets/icons/login.png";
 import guideStepIcon2 from "@/assets/icons/power.png";
 import guideStepIcon3 from "@/assets/icons/touch.png";
+import Icon from "@/components/atoms/Icon/Icon";
+import { useRouter } from "next/navigation";
+import { PAGE_URLS } from "@/constants/pages";
+import { useIsLogged } from "@/modules/business-logic/lib/auth";
 
 export default function Home() {
   const products: IProduct[] = [
     {
       id: "19057grtbeukfa198",
       image:
-        "https://rialloer.sirv.com/the_new_dawn/products/image-removebg-preview_(2)-gUcXQLCDx-transformed.png",
+        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/image-removebg-preview_(2)-gUcXQLCDx-transformsad%C3%A1%C4%91aed.png",
       name: "Đồng hồ thông minh HELIOS thường",
       features: [
         "Thoải mái thay đổi hình nền",
@@ -29,7 +34,7 @@ export default function Home() {
     {
       id: "1923eukfa198",
       image:
-        "https://rialloer.sirv.com/the_new_dawn/products/image-removebg-preview%20(1).png",
+        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product%202.png",
       name: "Đồng hồ thông minh HELIOS PRO",
       features: [
         "Có tất cả tính năng của bản thường",
@@ -43,7 +48,8 @@ export default function Home() {
     },
     {
       id: "19015beukfa198",
-      image: "https://rialloer.sirv.com/the_new_dawn/products/EMO.png",
+      image:
+        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product-1.png",
       name: "Robo EMO thông minh",
       features: [
         "Tự động khám phá thế giới",
@@ -56,47 +62,59 @@ export default function Home() {
       outOfStock: false,
     },
   ];
-
+  const router = useRouter();
+  const isLoggedIn = useIsLogged();
   return (
-    <main>
-      <section className="introduction">
-        <div className="introduction__content">
-          <small>
-            <span>Giảm 5%</span> nếu bạn là người <span>Việt Nam!</span>
-          </small>
-          <h1>Nâng tầm góc làm việc của bạn</h1>
-          <p>
-            Hãy xem qua các sản phẩm công nghệ mới, tích hợp đa chức năng và
-            được kết nối dung với hệ thống phần mềm quản lý đơn giản và dễ sử
-            dụng.
-          </p>
-          <div className="content__button-wrapper">
-            <div className="button-wrapper__shop">
-              <CommonButton style="modern-onlyBorder" onClick={() => {}}>
-                Đến cửa hàng
-              </CommonButton>
-            </div>
-            <div className="button-wrapper__app">
-              <CommonButton style="none" onClick={() => {}}>
-                Tải phần mềm
-              </CommonButton>
+    <main className="home">
+      <section className="introduction__wrapper">
+        <div className="introduction container">
+          <div className="introduction__content">
+            <small>
+              <span>Giảm 5%</span> nếu bạn là người <span>Việt Nam!</span>
+            </small>
+            <h1>Nâng tầm góc làm việc của bạn</h1>
+            <p>
+              Hãy xem qua các sản phẩm công nghệ mới, tích hợp đa chức năng và
+              được kết nối dung với hệ thống phần mềm quản lý đơn giản và dễ sử
+              dụng.
+            </p>
+            <div className="content__button-wrapper">
+              <div className="button-wrapper__shop">
+                <CommonButton
+                  style="modern-fill"
+                  onClick={() => {
+                    router.push(PAGE_URLS.SHOP);
+                  }}
+                >
+                  Đến cửa hàng
+                </CommonButton>
+              </div>
+              <div className="button-wrapper__app">
+                <CommonButton
+                  style="none"
+                  onClick={() => {
+                    router.push(PAGE_URLS.APPLICATION);
+                  }}
+                >
+                  Tải phần mềm
+                </CommonButton>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="introduction__graphics">
-          <Image
-            src={
-              "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/Untitled-ss2-transformed.png"
-            }
-            width={800}
-            height={650}
-            alt="helios clock"
-            priority
-          />
+          <div className="introduction__graphics">
+            <Image
+              src={
+                "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product.png"
+              }
+              alt="helios clock"
+              fill
+              priority
+            />
+          </div>
         </div>
       </section>
       <section className="hot-products">
-        <div className="soft-peach-background"></div>
+        <h2>SẢN PHẨM NỔI BẬT</h2>
         <div className="hot-products__list container">
           {products.map((p) => (
             <ProductCard key={p.id} productData={p} />
@@ -107,21 +125,21 @@ export default function Home() {
         <h2>Dễ dàng sử dụng!</h2>
         <div className="guide__steps">
           <div className="step">
-            <Image
-              src={guideStepIcon1}
+            <Icon
+              media={guideStepIcon1}
               alt="guide-login"
-              width={100}
-              height={100}
+              customWidth={100}
+              customHeight={100}
             />
             <h3>Đăng nhập</h3>
             <p>Đăng nhập bằng tài khoản Google hoặc đăng ký ngay</p>
           </div>
           <div className="step">
-            <Image
-              src={guideStepIcon2}
+            <Icon
+              media={guideStepIcon2}
               alt="guide-login"
-              width={100}
-              height={100}
+              customWidth={100}
+              customHeight={100}
             />
             <h3>Kích hoạt thiết bị</h3>
             <p>
@@ -130,11 +148,11 @@ export default function Home() {
             </p>
           </div>
           <div className="step">
-            <Image
-              src={guideStepIcon3}
+            <Icon
+              media={guideStepIcon3}
               alt="guide-login"
-              width={100}
-              height={100}
+              customWidth={100}
+              customHeight={100}
             />
             <h3>Sử dụng ngay!</h3>
             <p>
@@ -144,7 +162,16 @@ export default function Home() {
           </div>
         </div>
         <div className="guide__button-wrapper">
-          <CommonButton style="modern-fill">Bắt đầu ngay</CommonButton>
+          <CommonButton
+            style="modern-fill"
+            onClick={() => {
+              isLoggedIn
+                ? router.push(PAGE_URLS.ACTIVATE_DEVICE)
+                : router.push(PAGE_URLS.AUTHENTICATION);
+            }}
+          >
+            Bắt đầu ngay
+          </CommonButton>
         </div>
       </section>
       <section className="information">
@@ -188,7 +215,14 @@ export default function Home() {
               website. Bảo mật và tiện lợi!
             </p>
             <div className="content__action-button">
-              <CommonButton style="modern-fill">Xem sản phẩm</CommonButton>
+              <CommonButton
+                style="modern-fill"
+                onClick={() => {
+                  router.push(PAGE_URLS.APPLICATION);
+                }}
+              >
+                Xem sản phẩm
+              </CommonButton>
             </div>
           </div>
         </div>
@@ -207,7 +241,14 @@ export default function Home() {
               phát triển hơn trong tương lai.
             </p>
             <div className="content__action-button">
-              <CommonButton style="modern-fill">Đến cửa hàng</CommonButton>
+              <CommonButton
+                style="modern-fill"
+                onClick={() => {
+                  router.push(PAGE_URLS.SHOP);
+                }}
+              >
+                Đến cửa hàng
+              </CommonButton>
             </div>
           </div>
           <div className="article__images--right">

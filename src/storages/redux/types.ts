@@ -1,7 +1,11 @@
-export type currencyType = "USD" | "VND";
+export type crumbType = {
+  pathname: string;
+  name: string;
+};
+export type crumbsType = crumbType[];
 export type languageType = "vi" | "en";
 
 export type stateType = {
-  currency: currencyType;
+  crumbs: crumbsType;
   language: languageType;
 };

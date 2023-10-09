@@ -1,3 +1,4 @@
 export * from "./types";
+export * from "./hooks";
 export { AppReduxProvider } from "./provider";
-export { setCurrency, setLanguage } from "./slice";
+export { setCrumbs, setLanguage } from "./slice";

@@ -11,6 +11,7 @@ import momo from "@/assets/icons/momo-primary-logo/MoMo Primary Logo/png/momo_ic
 import cod from "@/assets/icons/shipment.png";
 import Logo from "@/assets/logos/the_new_dawn_white_slogan.png";
 import Link from "next/link";
+import Icon from "@/components/atoms/Icon/Icon";
 
 const Footer = () => {
   return (
@@ -18,11 +19,11 @@ const Footer = () => {
       <div className="footer__head">
         <div className="head__policies container">
           <div className="policy">
-            <Image
-              src={policyIcon1}
+            <Icon
+              media={policyIcon1}
               alt="return policy"
-              width={40}
-              height={40}
+              customWidth={40}
+              customHeight={40}
             />
             <div className="policy__content">
               <h5>7 ngày đổi trả</h5>
@@ -30,11 +31,11 @@ const Footer = () => {
             </div>
           </div>
           <div className="policy">
-            <Image
-              src={policyIcon2}
+            <Icon
+              media={policyIcon2}
               alt="return policy"
-              width={40}
-              height={40}
+              customWidth={40}
+              customHeight={40}
             />
             <div className="policy__content">
               <h5>6 tháng bảo hành</h5>
@@ -42,11 +43,11 @@ const Footer = () => {
             </div>
           </div>
           <div className="policy">
-            <Image
-              src={policyIcon3}
+            <Icon
+              media={policyIcon3}
               alt="return policy"
-              width={40}
-              height={40}
+              customWidth={40}
+              customHeight={40}
             />
             <div className="policy__content">
               <h5>Thanh toán dễ dàng</h5>
@@ -88,17 +89,27 @@ const Footer = () => {
             <h5>Kết nối với chúng tôi</h5>
             <div className="social-links">
               <Link href={"/"}>
-                <Image src={facebook} alt="facebook" width={35} height={35} />
+                <Icon
+                  media={facebook}
+                  alt="facebook"
+                  customWidth={35}
+                  customHeight={35}
+                />
               </Link>
               <Link href={"/"}>
-                <Image src={tiktok} alt="tiktok" width={35} height={35} />
+                <Icon
+                  media={tiktok}
+                  alt="tiktok"
+                  customWidth={35}
+                  customHeight={35}
+                />
               </Link>
             </div>
             <h6>Chúng tôi chấp nhận</h6>
             <div className="payment-methods">
-              <Image src={visa} alt="visa" width={0} height={0}></Image>
-              <Image src={momo} alt="momo" width={0} height={0}></Image>
-              <Image src={cod} alt="cod" width={0} height={0}></Image>
+              <Icon media={visa} alt="visa" customWidth={0} customHeight={0} />
+              <Icon media={momo} alt="momo" customWidth={0} customHeight={0} />
+              <Icon media={cod} alt="cod" customWidth={0} customHeight={0} />
             </div>
           </div>
         </div>

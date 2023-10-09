@@ -6,6 +6,9 @@ import Footer from "@/components/organisms/Footer/Footer";
 import "@flaticon/flaticon-uicons/css/all/all.css";
 import { BusinessLogicProvider } from "@/modules/business-logic/provider";
 import { AppReduxProvider } from "@/storages/redux";
+import Notification from "@/components/molecules/Notification/Notification";
+import FullScreenLoader from "@/components/molecules/FullScreenLoader/FullScreenLoader";
+import Catalog from "@/components/organisms/Catalog/Catalog";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -26,7 +29,14 @@ export default function RootLayout({
       <body className={montserrat.className}>
         <BusinessLogicProvider>
           <AppReduxProvider>
+            <Catalog />
             <Header />
+            <Notification />
+            <FullScreenLoader />
+            <div
+              className="margin-top__to-main"
+              style={{ width: "100vw", height: "140px" }}
+            ></div>
             {children}
             <Footer />
           </AppReduxProvider>

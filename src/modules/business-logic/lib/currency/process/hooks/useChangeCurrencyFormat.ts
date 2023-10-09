@@ -18,20 +18,17 @@ export const useChangeCurrencyFormat = (): UseChangeCurrencyFormatType => {
   ): Promise<number> => {
     return new Promise(
       (resolve, reject: (error: Error | AxiosError) => void) => {
-        console.log("FORMAT: ", format);
         dispatch({
           type: "SET_CURRENCY_FORMAT",
           payload: format,
         });
         if (format === "USD") {
-          console.log("state.rate: ", state.rate);
           if (state.rate === -1) {
             getCurrencyRateMutation
               .mutateAsync({ format })
               .then((data) => {
                 // If there is no error, clear the cart locally as well
                 const vndToUsdRate = data.rates.USD / data.rates.VND;
-                console.log("vndToUsdRate: ", vndToUsdRate);
                 setRateCookie(vndToUsdRate);
                 dispatch({
                   type: "SET_CURRENCY_RATE",
@@ -43,13 +40,14 @@ export const useChangeCurrencyFormat = (): UseChangeCurrencyFormatType => {
                 reject(error);
               });
           } else {
-            console.log("GO HERE: ");
             dispatch({
               type: "SET_CURRENCY_RATE",
               payload: state.rate,
             });
             resolve(state.rate);
           }
+        } else {
+          resolve(1);
         }
       }
     );

@@ -2,14 +2,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { currencyType, languageType } from "./types";
+import { crumbsType, languageType } from "./types";
 
 export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    setCurrency: (state, action: PayloadAction<currencyType>) => {
-      state.currency = action.payload;
+    setCrumbs: (state, action: PayloadAction<crumbsType>) => {
+      state.crumbs = action.payload;
     },
     setLanguage: (state, action: PayloadAction<languageType>) => {
       state.language = action.payload;
@@ -17,4 +17,5 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setCurrency, setLanguage } = appSlice.actions;
+const { setCrumbs, setLanguage } = appSlice.actions;
+export { setCrumbs, setLanguage };

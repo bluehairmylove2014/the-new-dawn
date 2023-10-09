@@ -1,4 +1,5 @@
 import { IProduct } from "@/modules/services/entities";
+import "./styles.scss";
 
 type cartButtonType = {
   product: IProduct;

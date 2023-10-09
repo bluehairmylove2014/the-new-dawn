@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getAxiosNormalInstance } from "../../config/axios";
 import { Services } from "../../service";
 import {
@@ -12,10 +12,11 @@ import {
 
 export class CurrencyService extends Services {
   abortController?: AbortController;
-  // exAccessKey = process.env.NEXT_PUBLIC_CURRENCY_ACCESS_KEY;
-  exAccessKey = "eacb396bec698225119e267b30eac2ae";
+  exAccessKey = process.env.NEXT_PUBLIC_CURRENCY_ACCESS_KEY;
+  axiosInstance = axios.create({
+    baseURL: exchangeratesapi,
+  });
 
-  // GOOGLE LOGIN
   getCurrencyRate = async ({
     format,
   }: {
@@ -23,18 +24,15 @@ export class CurrencyService extends Services {
   }): Promise<GetCurrencyRateServiceResponse> => {
     this.abortController = new AbortController();
     try {
-      console.log("SEND: ", exchangeratesapi + exchangeratesGetLatestPath);
       const response: AxiosResponse<GetCurrencyRateServerResponse> =
-        await getAxiosNormalInstance().get(exchangeratesGetLatestPath, {
-          baseURL: exchangeratesapi,
+        await this.axiosInstance.get(exchangeratesGetLatestPath, {
           signal: this.abortController.signal,
           params: {
             access_key: this.exAccessKey,
-            symbols: "USD,VND",
+            symbols: `${format},VND`,
             base: "EUR",
           },
         });
-      console.log("response: ", response);
       if (response.data.success) {
         return {
           date: response.data.date,

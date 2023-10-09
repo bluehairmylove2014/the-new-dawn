@@ -9,16 +9,22 @@ type commonButtonType = {
     | "modern-fill"
     | "modern-onlyBorder"
     | "none";
+  disabled?: boolean;
   onClick?: () => void;
 };
 
 export const CommonButton = ({
   children,
   style,
+  disabled,
   onClick,
 }: commonButtonType): JSX.Element => {
   return (
-    <button className={`common-button ${style}`} onClick={onClick}>
+    <button
+      className={`common-button ${style}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

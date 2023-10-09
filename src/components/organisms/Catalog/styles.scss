@@ -1,0 +1,74 @@
+@import '@/app/mixins.scss';
+
+.catalog__wrapper {
+    background-color: var(--soft-peach);
+    width: 100vw;
+    height: 70px;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    z-index: 9;
+}
+
+.catalog {
+    width: 100%;
+    height: 100%;
+    color: black;
+    font-size: 0.75rem;
+    font-weight: 600;
+    // direction - justify content - align items - flex wrap
+    @include dflex(row, space-between, center, nowrap);
+    gap: 1rem;
+
+    .catalog__title {
+        // direction - justify content - align items - flex wrap
+        @include dflex(row, flex-start, center, nowrap);
+        gap: 8px;
+        flex-shrink: 1;
+        pointer-events: none;
+    }
+
+    .catalog__items {
+        flex-grow: 1;
+        // direction - justify content - align items - flex wrap
+        @include dflex(row, flex-end, center, nowrap);
+
+        ul {
+            // direction - justify content - align items - flex wrap
+            @include dflex(row, flex-end, center, nowrap);
+
+            .item {
+                opacity: 0.6;
+                transition: opacity 0.2s ease-in-out;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .cart-item {
+                // direction - justify content - align items - flex wrap
+                @include dflex(row, flex-end, center, nowrap);
+                gap: 5px;
+                position: relative;
+                cursor: pointer;
+
+                span {
+                    margin-right: 7px;
+                }
+
+                .cart-item__badge {
+                    position: absolute;
+                    top: -12px;
+                    right: -12px;
+                    background-color: var(--saffron-mango);
+                    color: black;
+                    border-radius: 50%;
+                    padding: 4px 6px;
+                    font-size: 0.5rem;
+                }
+            }
+        }
+    }
+}
