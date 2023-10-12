@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useConvertCurrency } from "@/modules/business-logic/lib/currency/process/hooks/useConvertCurrency";
 import Slider from "@/components/atoms/Slider/Slider";
 import Pagination from "@/components/molecules/Pagination/Pagination";
+// import { GetServerSideProps } from "next";
 
 const budgetFilterLimit = {
   min: 0,
@@ -27,8 +28,7 @@ const Shop = () => {
   const products: IProduct[] = [
     {
       id: "19057grtbeukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/image-removebg-preview_(2)-gUcXQLCDx-transformsad%C3%A1%C4%91aed.png",
+      thumbnail: "https://thenewdawn.b-cdn.net/products/helios/thumbnail.png",
       name: "Đồng hồ thông minh HELIOS thường",
       features: [
         "Thoải mái thay đổi hình nền",
@@ -42,8 +42,8 @@ const Shop = () => {
     },
     {
       id: "1923eukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product%202.png",
+      thumbnail:
+        "https://thenewdawn.b-cdn.net/products/helios_pro/thumbnail.png",
       name: "Đồng hồ thông minh HELIOS PRO",
       features: [
         "Có tất cả tính năng của bản thường",
@@ -57,8 +57,8 @@ const Shop = () => {
     },
     {
       id: "19015beukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product-1.png",
+      thumbnail:
+        "https://thenewdawn.b-cdn.net/products/helios_legendary/thumbnail.png",
       name: "Robo EMO thông minh",
       features: [
         "Tự động khám phá thế giới",
@@ -71,9 +71,8 @@ const Shop = () => {
       outOfStock: false,
     },
     {
-      id: "19057grtbeukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/image-removebg-preview_(2)-gUcXQLCDx-transformsad%C3%A1%C4%91aed.png",
+      id: "190tbeukfa198",
+      thumbnail: "https://thenewdawn.b-cdn.net/products/helios/thumbnail.png",
       name: "Đồng hồ thông minh HELIOS thường",
       features: [
         "Thoải mái thay đổi hình nền",
@@ -86,9 +85,9 @@ const Shop = () => {
       outOfStock: false,
     },
     {
-      id: "1923eukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product%202.png",
+      id: "1923euka198",
+      thumbnail:
+        "https://thenewdawn.b-cdn.net/products/helios_pro/thumbnail.png",
       name: "Đồng hồ thông minh HELIOS PRO",
       features: [
         "Có tất cả tính năng của bản thường",
@@ -101,9 +100,9 @@ const Shop = () => {
       outOfStock: false,
     },
     {
-      id: "19015beukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product-1.png",
+      id: "19015beukf8",
+      thumbnail:
+        "https://thenewdawn.b-cdn.net/products/helios_legendary/thumbnail.png",
       name: "Robo EMO thông minh",
       features: [
         "Tự động khám phá thế giới",
@@ -242,5 +241,11 @@ const Shop = () => {
     </div>
   );
 };
+
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   return {
+//     props: {},
+//   };
+// };
 
 export default Shop;

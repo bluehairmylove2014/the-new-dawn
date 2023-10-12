@@ -29,6 +29,15 @@ export class Services {
   }
 
   handleError(error: any): Error {
+    console.log("this.isCancel", this.isCancel);
+    console.log("this.cancelRequest", this.cancelRequest);
+    console.log("isAxiosError", isAxiosError);
+    console.log(
+      "hello: ",
+      isAxiosError(error)
+        ? error?.response?.data?.message || unknownError
+        : unknownError
+    );
     if (this.isCancel(error)) {
       this.cancelRequest();
       return error;
@@ -59,7 +68,7 @@ export class Services {
     data?: any;
     headers?: any;
     signal: AbortSignal;
-    transformResponse: (res: T) => {};
+    transformResponse: (res: T) => void;
     isProduction?: boolean;
     withCredentials?: boolean;
   }): Promise<any> {

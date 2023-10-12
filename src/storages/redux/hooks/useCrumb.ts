@@ -10,19 +10,15 @@ export const useCrumb = (): useCrumbType => {
   const dispatch = useDispatch();
 
   const addNewCrumb = (pathname: string) => {
-    const targetCrumb = CRUMBS_TEMPLATE.find(
-      (crumb) => crumb.pathname === pathname
+    const targetCrumb = CRUMBS_TEMPLATE.reverse().find((crumb) =>
+      pathname.includes(crumb.pathname)
     );
     if (targetCrumb) {
       const cloneCrumbsData = [...crumbsData];
       const sameCrumbIndex = cloneCrumbsData.indexOf(targetCrumb);
-      console.log("FOUND INDEX: ", sameCrumbIndex);
-      console.log("FROM: ", cloneCrumbsData);
       if (sameCrumbIndex !== -1) {
-        console.log([1, 2, 3].splice(0, 2));
         cloneCrumbsData.splice(0, sameCrumbIndex);
       } else {
-        console.log("PUSH: ", targetCrumb);
         cloneCrumbsData.push(targetCrumb);
       }
       dispatch(setCrumbs(cloneCrumbsData));

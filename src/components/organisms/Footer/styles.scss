@@ -5,25 +5,7 @@
     margin-top: 4rem;
 
     .footer__head {
-        background-color: var(--gainsboro);
         width: 100%;
-        padding: 1rem 0;
-
-        .head__policies {
-            // direction - justify content - align items - flex wrap
-            @include dflex(row, space-evenly, center, nowrap);
-            gap: 2rem;
-
-            .policy {
-                // columns - row - gap
-                @include dgrid(40px 1fr, auto, 0.5rem);
-
-                .policy__content {
-                    grid-column: 2;
-
-                }
-            }
-        }
     }
 
     .footer__body {

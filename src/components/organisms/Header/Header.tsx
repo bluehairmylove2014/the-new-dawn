@@ -79,7 +79,6 @@ const Header = () => {
 
   // Hooks
   useEffect(() => {
-    console.log("pathname: ", pathname);
     addNewCrumb(pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
@@ -109,7 +108,7 @@ const Header = () => {
               </p>
             </NavDropdown>
           </li> */}
-            <li>
+            {/* <li>
               <NavDropdown
                 options={moneyOptions}
                 onClick={handleChangeCurrency}
@@ -125,7 +124,7 @@ const Header = () => {
                   <i className="fi fi-sr-caret-down"></i>
                 </p>
               </NavDropdown>
-            </li>
+            </li> */}
             <li className="nav__item--link">
               <Link href={PAGE_URLS.GUIDE}>
                 {/* <i className="fi fi-ss-box-open"></i> */}

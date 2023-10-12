@@ -12,51 +12,13 @@ import cod from "@/assets/icons/shipment.png";
 import Logo from "@/assets/logos/the_new_dawn_white_slogan.png";
 import Link from "next/link";
 import Icon from "@/components/atoms/Icon/Icon";
+import PoliciesBar from "@/components/molecules/PoliciesBar/PoliciesBar";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__head">
-        <div className="head__policies container">
-          <div className="policy">
-            <Icon
-              media={policyIcon1}
-              alt="return policy"
-              customWidth={40}
-              customHeight={40}
-            />
-            <div className="policy__content">
-              <h5>7 ngày đổi trả</h5>
-              <p>Yên tâm mua sắm với chính sách đổi trả trong vòng 7 ngày</p>
-            </div>
-          </div>
-          <div className="policy">
-            <Icon
-              media={policyIcon2}
-              alt="return policy"
-              customWidth={40}
-              customHeight={40}
-            />
-            <div className="policy__content">
-              <h5>6 tháng bảo hành</h5>
-              <p>6 tháng bảo hành miễn phí nếu có lỗi từ nhà sản xuất</p>
-            </div>
-          </div>
-          <div className="policy">
-            <Icon
-              media={policyIcon3}
-              alt="return policy"
-              customWidth={40}
-              customHeight={40}
-            />
-            <div className="policy__content">
-              <h5>Thanh toán dễ dàng</h5>
-              <p>
-                Đa dạng phương thức như COD, chuyển khoản (nội địa và quốc tế)
-              </p>
-            </div>
-          </div>
-        </div>
+        <PoliciesBar style="full" />
       </div>
       <div className="footer__body">
         <div className="footer-body__info container">

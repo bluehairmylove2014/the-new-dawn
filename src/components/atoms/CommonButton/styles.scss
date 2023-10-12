@@ -2,7 +2,7 @@
 
 .common-button {
     outline: none;
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
     // Default
     background-color: var(--white-smoke);
     color: var(--dark);
@@ -58,9 +58,21 @@
         border-radius: 0;
 
         &:hover {
-            background-color: var(--saffron-mango);
-            border-color: var(--saffron-mango);
+            background-color: var(--chardonnay);
+            border-color: var(--chardonnay);
             color: var(--dark);
+        }
+    }
+
+    &.square {
+        border-radius: 50%;
+        background-color: var(--soft-peach);
+        // direction - justify content - align items - flex wrap
+        @include dflex(row, center, center, nowrap);
+
+
+        &:hover {
+            background-color: var(--gainsboro);
         }
     }
 
@@ -68,5 +80,14 @@
         background-color: transparent;
         border-color: transparent;
         color: inherit;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    * {
+        pointer-events: none;
     }
 }

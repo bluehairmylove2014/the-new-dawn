@@ -1,3 +1,4 @@
+"use client";
 import "./styles.scss";
 
 type commonButtonType = {
@@ -8,6 +9,7 @@ type commonButtonType = {
     | "onlyBorder"
     | "modern-fill"
     | "modern-onlyBorder"
+    | "square"
     | "none";
   disabled?: boolean;
   onClick?: () => void;

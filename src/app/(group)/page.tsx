@@ -14,12 +14,17 @@ import { useRouter } from "next/navigation";
 import { PAGE_URLS } from "@/constants/pages";
 import { useIsLogged } from "@/modules/business-logic/lib/auth";
 
+import heliosGraphic from "@/assets/graphics/helios.png";
+import blogGraphic1 from "@/assets/graphics/yasin-hasan-Od3vrRKvPBk-unsplash.jpg";
+import blogGraphic2 from "@/assets/graphics/piggybank-pbsxykvExdM-unsplash.jpg";
+import blogGraphic3 from "@/assets/graphics/minh-pham-3s9s0sY666A-unsplash.jpg";
+import blogGraphic4 from "@/assets/graphics/jet-dela-cruz-6p2AkWAIC8E-unsplash.jpg";
+
 export default function Home() {
   const products: IProduct[] = [
     {
       id: "19057grtbeukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/image-removebg-preview_(2)-gUcXQLCDx-transformsad%C3%A1%C4%91aed.png",
+      thumbnail: "https://thenewdawn.b-cdn.net/products/helios/thumbnail.png",
       name: "Đồng hồ thông minh HELIOS thường",
       features: [
         "Thoải mái thay đổi hình nền",
@@ -33,8 +38,8 @@ export default function Home() {
     },
     {
       id: "1923eukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product%202.png",
+      thumbnail:
+        "https://thenewdawn.b-cdn.net/products/helios_pro/thumbnail.png",
       name: "Đồng hồ thông minh HELIOS PRO",
       features: [
         "Có tất cả tính năng của bản thường",
@@ -48,8 +53,8 @@ export default function Home() {
     },
     {
       id: "19015beukfa198",
-      image:
-        "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product-1.png",
+      thumbnail:
+        "https://thenewdawn.b-cdn.net/products/helios_legendary/thumbnail.png",
       name: "Robo EMO thông minh",
       features: [
         "Tự động khám phá thế giới",
@@ -102,14 +107,7 @@ export default function Home() {
             </div>
           </div>
           <div className="introduction__graphics">
-            <Image
-              src={
-                "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/product.png"
-              }
-              alt="helios clock"
-              fill
-              priority
-            />
+            <Image src={heliosGraphic} alt="helios clock" fill priority />
           </div>
         </div>
       </section>
@@ -178,22 +176,10 @@ export default function Home() {
         <div className="information__article container">
           <div className="article__images--left">
             <div className="image">
-              <Image
-                src={
-                  "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/yasin-hasan-Od3vrRKvPBk-unsplash.jpg"
-                }
-                alt="helios clock 1"
-                fill
-              />
+              <Image src={blogGraphic1} alt="helios clock 1" fill />
             </div>
             <div className="image">
-              <Image
-                src={
-                  "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/piggybank-pbsxykvExdM-unsplash.jpg"
-                }
-                alt="helios clock 2"
-                fill
-              />
+              <Image src={blogGraphic2} alt="helios clock 2" fill />
             </div>
             <h3 className="images__sort-description">
               Miễn phí, hiện đại
@@ -253,22 +239,10 @@ export default function Home() {
           </div>
           <div className="article__images--right">
             <div className="image">
-              <Image
-                src={
-                  "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/minh-pham-3s9s0sY666A-unsplash.jpg"
-                }
-                alt="vietnam 1"
-                fill
-              />
+              <Image src={blogGraphic3} alt="vietnam 1" fill />
             </div>
             <div className="image">
-              <Image
-                src={
-                  "https://rialloer.sirv.com/the_new_dawn/graphics/Helios/jet-dela-cruz-6p2AkWAIC8E-unsplash.jpg"
-                }
-                alt="vietnam 2"
-                fill
-              />
+              <Image src={blogGraphic4} alt="vietnam 2" fill />
             </div>
             <h3 className="images__sort-description">
               Người Việt dùng
