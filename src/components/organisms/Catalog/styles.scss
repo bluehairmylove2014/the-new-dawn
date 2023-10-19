@@ -1,13 +1,26 @@
 @import '@/app/mixins.scss';
 
 .catalog__wrapper {
-    background-color: var(--soft-peach);
+    background-color: white;
     width: 100vw;
-    height: 70px;
     position: fixed;
     top: 70px;
     left: 0;
     z-index: 9;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+    transition: all 0.1s;
+    height: 0;
+    opacity: 0;
+    pointer-events: 0;
+    visibility: hidden;
+
+    &.active {
+        height: 40px;
+        opacity: 1;
+        pointer-events: all;
+        visibility: visible;
+    }
 }
 
 .catalog {
@@ -17,56 +30,38 @@
     font-size: 0.75rem;
     font-weight: 600;
     // direction - justify content - align items - flex wrap
-    @include dflex(row, space-between, center, nowrap);
-    gap: 1rem;
+    @include dflex(row, center, center, nowrap);
 
-    .catalog__title {
+
+    ul {
         // direction - justify content - align items - flex wrap
-        @include dflex(row, flex-start, center, nowrap);
-        gap: 8px;
-        flex-shrink: 1;
-        pointer-events: none;
-    }
+        @include dflex(row, space-evenly, center, nowrap);
+        gap: 0;
 
-    .catalog__items {
-        flex-grow: 1;
-        // direction - justify content - align items - flex wrap
-        @include dflex(row, flex-end, center, nowrap);
+        .item {
+            cursor: pointer;
 
-        ul {
-            // direction - justify content - align items - flex wrap
-            @include dflex(row, flex-end, center, nowrap);
+            a {
+                text-wrap: nowrap;
+                transition: color 0.2s ease-in-out;
 
-            .item {
-                opacity: 0.6;
-                transition: opacity 0.2s ease-in-out;
-                cursor: pointer;
-
-                &:hover {
-                    opacity: 1;
+                i {
+                    margin-right: 6px;
+                    bottom: -2px;
                 }
             }
 
-            .cart-item {
-                // direction - justify content - align items - flex wrap
-                @include dflex(row, flex-end, center, nowrap);
-                gap: 5px;
-                position: relative;
-                cursor: pointer;
-
-                span {
-                    margin-right: 7px;
+            &:hover {
+                a {
+                    color: var(--saffron-mango);
                 }
+            }
 
-                .cart-item__badge {
-                    position: absolute;
-                    top: -12px;
-                    right: -12px;
-                    background-color: var(--saffron-mango);
-                    color: black;
-                    border-radius: 50%;
-                    padding: 4px 6px;
-                    font-size: 0.5rem;
+            &:not(:last-child) {
+                &::after {
+                    content: '|';
+                    margin: 0 1.125rem;
+                    opacity: 0.2;
                 }
             }
         }

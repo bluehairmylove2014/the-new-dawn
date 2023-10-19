@@ -2,31 +2,39 @@
 import Link from "next/link";
 import { catalogData } from "./Data";
 import "./styles.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Catalog = () => {
-  const [cartItemQuantity, setCartItemQuantity] = useState(0);
+  const [isShowing, setIsShowing] = useState(true);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY <= 70) {
+        setIsShowing(true);
+      } else {
+        setIsShowing(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
   return (
-    <div className="catalog__wrapper">
-      <div className="catalog container">
-        <div className="catalog__title">
-          <i className="fi fi-bs-menu-burger"></i>
-          Danh mục
-        </div>
-        <nav className="catalog__items">
-          <ul>
-            {catalogData.map((cd) => (
-              <li className="item" key={cd.name}>
-                <Link href={cd.href}>{cd.name}</Link>
-              </li>
-            ))}
-            <li className="cart-item">
-              <i className="fi fi-sr-shopping-bag"></i>
-              <span>Giỏ hàng</span>
-              <div className="cart-item__badge">{cartItemQuantity}</div>
+    <div className={`catalog__wrapper ${isShowing ? "active" : ""}`}>
+      <nav className="catalog container">
+        <ul>
+          {catalogData.map((cd) => (
+            <li className="item" key={cd.name}>
+              <Link href={cd.href} prefetch={true}>
+                <i className={cd.icon} />
+                {cd.name}
+              </Link>
             </li>
-          </ul>
-        </nav>
-      </div>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 };

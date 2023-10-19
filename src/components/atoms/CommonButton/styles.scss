@@ -14,6 +14,7 @@
     font-weight: 600;
     font-size: 0.75rem;
     cursor: pointer;
+    position: relative;
 
     &.fill {
         &:hover {
@@ -64,6 +65,18 @@
         }
     }
 
+    &.soft-fill {
+        background-color: var(--irish-green);
+        border-color: var(--irish-green);
+        color: white;
+        border-radius: 0;
+
+        &:hover {
+            background-color: green;
+            border-color: green;
+        }
+    }
+
     &.square {
         border-radius: 50%;
         background-color: var(--soft-peach);
@@ -83,11 +96,31 @@
     }
 
     &:disabled {
-        opacity: 0.5;
+        // opacity: 0.5;
         cursor: not-allowed;
     }
 
-    * {
+    .loader {
+        @include absolute-center;
+        display: none;
+        z-index: 3;
+    }
+
+    &.loading {
+        opacity: 0.5;
+
+        &>*:not(.loader) {
+            opacity: 0;
+        }
+
+        .loader {
+            display: block;
+        }
+    }
+
+    *:not(.loader) {
+        position: relative;
         pointer-events: none;
+        z-index: 2;
     }
 }

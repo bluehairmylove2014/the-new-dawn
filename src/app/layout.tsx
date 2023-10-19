@@ -35,7 +35,7 @@ export default function RootLayout({
             <FullScreenLoader />
             <div
               className="margin-top__to-main"
-              style={{ width: "100vw", height: "140px" }}
+              style={{ width: "100vw", height: "110px" }}
             ></div>
             {children}
             <Footer />

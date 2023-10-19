@@ -9,12 +9,12 @@ export const cartReducer = (
       case "SET_CART_ACTION":
         return {
           ...state,
-          cart: action.payload
+          cart: action.payload,
         };
       case "SET_TOKEN_ACTION":
         return {
           ...state,
-          accessToken: action.payload
+          accessToken: action.payload,
         };
       case "DELETE_ACTION":
         if (!state.cart?.items || !action.payload?.productId) return state;
@@ -24,10 +24,11 @@ export const cartReducer = (
             (p) => p.item.id !== action.payload.productId
           );
           return {
-            ...state
+            ...state,
           };
         }
         // Else decrease quantity
+        console.log("RUN HERE");
         state.cart.items = state.cart.items.map((p) => {
           if (
             p.item.id === action.payload.productId &&
@@ -38,7 +39,7 @@ export const cartReducer = (
           return p;
         });
         return {
-          ...state
+          ...state,
         };
 
       default:

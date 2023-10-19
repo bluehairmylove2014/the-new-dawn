@@ -6,6 +6,8 @@ import { useConvertCurrency } from "@/modules/business-logic/lib/currency/proces
 import Link from "next/link";
 import { PAGE_URLS } from "@/constants/pages";
 import { calculateDiscountedPrice } from "@/utils/helpers";
+import { useAddToCart } from "@/modules/business-logic/lib/cart";
+import { useNotification } from "../Notification/Notification";
 
 type SIZE = "small" | "medium" | "large";
 const ProductCard = ({
@@ -18,12 +20,19 @@ const ProductCard = ({
   autoFill?: boolean;
 }) => {
   const { onConvertNumberToCurrency } = useConvertCurrency();
-  const handleAddToCart = (product: IProduct) => {
-    // TODO
+  const { onAddToCart, isLoading } = useAddToCart();
+  const { showError, showSuccess } = useNotification();
+  const handleAddToCart = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onAddToCart({ item: productData, quantity: 1 })
+      .then((msg) => showSuccess(msg))
+      .catch((error) => showError(error.message));
   };
 
   return productData ? (
     <Link
+      prefetch={true}
       href={PAGE_URLS.PRODUCT + "/" + productData.id}
       className={`product-card ${size ? size : "medium"} ${
         autoFill ? "fill" : ""
@@ -72,7 +81,13 @@ const ProductCard = ({
           )} */}
         </div>
         <div className="card__buy">
-          <CommonButton style="modern-fill">Thêm vào giỏ hàng</CommonButton>
+          <CommonButton
+            style="modern-fill"
+            onClick={handleAddToCart}
+            loading={isLoading}
+          >
+            Thêm vào giỏ hàng
+          </CommonButton>
         </div>
         {/* {size && size === "small" ? (
           <></>

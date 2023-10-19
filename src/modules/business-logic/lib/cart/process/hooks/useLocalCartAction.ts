@@ -69,7 +69,6 @@ export const useLocalCartAction = (): UseLocalCartActionType => {
       if (targetProduct) {
         targetProduct.quantity -= quantity;
       }
-
       setCartLocalStorage(localCart);
     }
   };
@@ -86,7 +85,7 @@ export const useLocalCartAction = (): UseLocalCartActionType => {
   return {
     setCart,
     addToCart,
-    decreaseItemQuantityLocalStorage: decreaseItemQuantityLocalStorage,
+    decreaseItemQuantityLocalStorage,
     deleteFromCartLocalStorage: deleteFromCartLocalStorage,
   };
 };

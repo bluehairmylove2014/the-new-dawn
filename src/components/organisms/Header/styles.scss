@@ -48,6 +48,35 @@ nav ul {
         &:hover {
             color: rgb(161, 161, 161);
         }
+
+        .cart-item {
+            // direction - justify content - align items - flex wrap
+            @include dflex(row, flex-end, center, nowrap);
+            gap: 5px;
+            position: relative;
+            cursor: pointer;
+
+            span {
+                margin-right: 7px;
+            }
+
+            .cart-item__badge {
+                position: absolute;
+                top: -12px;
+                right: -12px;
+                background-color: var(--saffron-mango);
+                color: black;
+                border-radius: 50%;
+                padding: 4px 8px;
+                font-size: 0.5rem;
+                font-weight: 600;
+                transition: all 0.2s ease-in-out;
+            }
+
+            &:hover .cart-item__badge {
+                opacity: 0.4;
+            }
+        }
     }
 
     .user {

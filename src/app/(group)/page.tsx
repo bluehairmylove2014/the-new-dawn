@@ -75,12 +75,12 @@ export default function Home() {
         <div className="introduction container">
           <div className="introduction__content">
             <small>
-              <span>Giảm 5%</span> nếu bạn là người <span>Việt Nam!</span>
+              <span>Giảm tới 5%</span> nếu bạn là người <span>Việt Nam!</span>
             </small>
             <h1>Nâng tầm góc làm việc của bạn</h1>
             <p>
               Hãy xem qua các sản phẩm công nghệ mới, tích hợp đa chức năng và
-              được kết nối dung với hệ thống phần mềm quản lý đơn giản và dễ sử
+              được kết nối cùng với hệ thống phần mềm quản lý đơn giản và dễ sử
               dụng.
             </p>
             <div className="content__button-wrapper">
@@ -96,7 +96,7 @@ export default function Home() {
               </div>
               <div className="button-wrapper__app">
                 <CommonButton
-                  style="none"
+                  style="modern-onlyBorder"
                   onClick={() => {
                     router.push(PAGE_URLS.APPLICATION);
                   }}

@@ -5,13 +5,13 @@
     background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
-    height: calc(100vh - 140px);
+    height: calc(100vh - 110px);
 }
 
 .introduction {
     position: relative;
     width: 100%;
-    height: calc(100% - 4rem);
+    height: 100%;
     @include dflex(column, center, center, nowrap);
     padding: 2rem 0;
 
@@ -21,8 +21,8 @@
     }
 
     .introduction__content {
-        @include dflex(column, flex-end, center, nowrap);
-        height: 30%;
+        @include dflex(column, center, center, nowrap);
+        height: 40%;
 
         small {
             font-weight: 600;
@@ -34,11 +34,15 @@
 
         p {
             margin: 10px 0 20px 0;
+            text-align: center;
+            max-width: 70%;
         }
 
         .content__button-wrapper {
             width: 100%;
             text-align: center;
+            @include dflex(row, center, center, nowrap);
+            gap: 15px;
 
             .button-wrapper__shop,
             .button-wrapper__app {
@@ -52,7 +56,7 @@
     .introduction__graphics {
         overflow: hidden;
         position: relative;
-        height: 70%;
+        height: 60%;
 
         img {
             position: absolute;

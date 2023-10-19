@@ -2,24 +2,24 @@
 
 .product {
     width: 100vw;
-    margin: 1rem 0 2rem 0;
+    margin: 3rem 0;
 
     .product__overview {
         width: 100%;
-        height: 450px;
+        height: fit-content;
         position: relative;
         // direction - justify content - align items - flex wrap
         @include dflex(row, flex-start, flex-start, nowrap);
-        gap: 1rem;
+        gap: 2rem;
         margin-top: 0.5rem;
 
         .overview__images {
-            width: 40%;
-            height: 100%;
+            width: 45%;
+            height: 480px;
         }
 
         .overview__content {
-            width: 60%;
+            width: calc(55% - 2rem);
             height: fit-content;
 
             strong {

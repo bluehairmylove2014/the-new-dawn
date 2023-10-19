@@ -1,4 +1,5 @@
 // Import necessary modules and functions
+import { useState } from "react";
 import {
   AxiosError,
   DecreaseItemQuantityParams,
@@ -12,11 +13,9 @@ import { useCartContext } from "../context";
 import { useGetCart } from "./useGetCart";
 import { useLocalCartAction } from "./useLocalCartAction";
 
-const debounceDelayTime = 1000;
+const debounceDelayTime = 500;
 type UseDeleteFromType = {
-  onDecreaseItemQuantity: (
-    params: DecreaseItemQuantityParams
-  ) => Promise<string>;
+  onDecreaseItem: (params: DecreaseItemQuantityParams) => Promise<string>;
   onDeleteItem: (productID: string) => Promise<string>;
   isLoading: boolean;
 };
@@ -30,6 +29,7 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
     decreaseItemQuantityLocalStorage,
   } = useLocalCartAction();
   const { onGetCart } = useGetCart();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onDecreaseItemQuantity = debouncePromise<
     string,
@@ -37,18 +37,11 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
   >((params: DecreaseItemQuantityParams): Promise<string> => {
     return new Promise(
       (resolve, reject: (error: Error | AxiosError) => void) => {
+        console.log("DELETE2");
         const targetProduct = state.cart?.items?.find(
           (ci) => ci.item.id === params.productId
         );
         if (targetProduct && targetProduct.quantity > params.quantity) {
-          dispatch({
-            type: "DELETE_ACTION",
-            payload: {
-              productId: params.productId,
-              quantity: params.quantity,
-            },
-          });
-
           if (state.accessToken) {
             decreaseItemQuantityMutation
               .mutateAsync({
@@ -78,15 +71,22 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
                     });
                   });
                 reject(error);
+              })
+              .finally(() => {
+                setIsLoading(false);
               });
           } else {
             decreaseItemQuantityLocalStorage(params.productId, params.quantity);
+            setIsLoading(false);
             resolve("Delete from cart success");
           }
         } else {
           onDeleteItem(params.productId)
             .then((data) => resolve(data))
-            .catch((err) => reject(err));
+            .catch((err) => reject(err))
+            .finally(() => {
+              setIsLoading(false);
+            });
         }
       }
     );
@@ -94,6 +94,7 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
   const onDeleteItem = (productID: string): Promise<string> => {
     return new Promise(
       (resolve, reject: (error: Error | AxiosError) => void) => {
+        setIsLoading(true);
         dispatch({
           type: "DELETE_ACTION",
           payload: {
@@ -126,9 +127,13 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
                   });
                 });
               reject(error);
+            })
+            .finally(() => {
+              setIsLoading(false);
             });
         } else {
           deleteFromCartLocalStorage(productID);
+          setIsLoading(false);
           resolve("Delete from cart success");
         }
       }
@@ -136,8 +141,19 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
   };
 
   return {
-    onDecreaseItemQuantity,
+    onDecreaseItem: (params: DecreaseItemQuantityParams): Promise<string> => {
+      setIsLoading(true);
+      console.log("DELETE1");
+      dispatch({
+        type: "DELETE_ACTION",
+        payload: {
+          productId: params.productId,
+          quantity: params.quantity,
+        },
+      });
+      return onDecreaseItemQuantity(params);
+    },
     onDeleteItem,
-    isLoading: deleteFromCartMutation.isLoading,
+    isLoading,
   };
 };

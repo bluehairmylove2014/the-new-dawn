@@ -21,8 +21,10 @@ import { useFullscreenLoaderController } from "@/components/molecules/FullScreen
 import Icon from "@/components/atoms/Icon/Icon";
 import { currencyFormatType } from "@/modules/business-logic/lib/currency/process/context";
 import { usePathname } from "next/navigation";
+import { useGetCartItems } from "@/modules/business-logic/lib/cart";
 
 const Header = () => {
+  const cartData = useGetCartItems();
   const isLoggedIn = useIsLogged();
   const pathname = usePathname();
   const { addNewCrumb } = useCrumb();
@@ -125,28 +127,31 @@ const Header = () => {
                 </p>
               </NavDropdown>
             </li> */}
-            <li className="nav__item--link">
+            {/* <li className="nav__item--link">
               <Link href={PAGE_URLS.GUIDE}>
-                {/* <i className="fi fi-ss-box-open"></i> */}
+                <i className="fi fi-ss-box-open"></i>
                 Hướng dẫn
               </Link>
             </li>
             <li className="nav__item--link">
               <Link href={PAGE_URLS.ACTIVATE_DEVICE}>
-                {/* <i className="fi fi-ss-box-open"></i> */}
+                <i className="fi fi-ss-box-open"></i>
                 Kích hoạt thiết bị
               </Link>
-            </li>
+            </li> */}
             <li className="nav__item--link">
-              <Link href={PAGE_URLS.PRODUCT}>
-                {/* <i className="fi fi-ss-box-open"></i> */}
-                Phần mềm
+              <Link href={PAGE_URLS.SHOP} prefetch={true}>
+                <i className="fi fi-ss-shop"></i>
+                Cửa hàng
               </Link>
             </li>
             <li className="nav__item--link">
-              <Link href={PAGE_URLS.SHOP}>
-                {/* <i className="fi fi-ss-basket-shopping-simple"> </i> */}
-                Cửa hàng
+              <Link href={PAGE_URLS.CART} className="cart-item" prefetch={true}>
+                <i className="fi fi-sr-shopping-bag"></i>
+                <span>Giỏ hàng</span>
+                <div className="cart-item__badge">
+                  {Array.isArray(cartData) ? cartData.length : 0}
+                </div>
               </Link>
             </li>
             {isLoggedIn && userData ? (
@@ -159,7 +164,11 @@ const Header = () => {
                     customHeight={30}
                   />
                 </Link>
-                <Link href={PAGE_URLS.ME} className="user__avatar">
+                <Link
+                  href={PAGE_URLS.ME}
+                  className="user__avatar"
+                  prefetch={true}
+                >
                   <Icon
                     media={userData.avatar}
                     alt="avatar"

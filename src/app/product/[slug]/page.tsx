@@ -19,7 +19,6 @@ const Product = async ({ params }: { params: { slug: string } }) => {
   const productData = await productService.getProduct({
     productId: params.slug,
   });
-
   // Methods
   const generateProductDetails = (details: detailsType) => {
     return Array.isArray(details) ? (
@@ -89,7 +88,11 @@ const Product = async ({ params }: { params: { slug: string } }) => {
                           calculateDiscountedPrice(
                             productData.price,
                             productData.discount
-                          ).discountedPrice
+                          ).discountedPrice +
+                            calculateDiscountedPrice(
+                              productData.price,
+                              productData.discount
+                            ).amountToPay
                         )}
                       </span>
                     </p>
@@ -101,21 +104,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
                   <p>{onConvertNumberToCurrency(productData.price)}</p>
                 )}
               </div>
-              <div className="content__quantity">
-                <QuantityHandler />
-              </div>
-              {productData.outOfStock ? (
-                <></>
-              ) : (
-                <div className="content__interact-wrapper">
-                  <div className="button-wrapper">
-                    <BuyButton product={productData} />
-                  </div>
-                  <div className="button-wrapper">
-                    <AddToCartButton product={productData} />
-                  </div>
-                </div>
-              )}
+              <QuantityHandler productData={{ ...productData }} />
             </div>
           </div>
           <div className="product__policy">

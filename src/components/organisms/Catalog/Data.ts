@@ -1,18 +1,22 @@
 export const catalogData = [
   {
-    name: "Hot & Ưu đãi",
+    name: "Hướng dẫn tổng quan",
     href: "",
+    icon: "fi fi-br-interrogation",
   },
   {
-    name: "Bàn ghế",
+    name: "Kích hoạt thiết bị",
     href: "",
+    icon: "fi fi-bs-bolt",
   },
   {
-    name: "Đồng hồ thông minh",
+    name: "Phần mềm quản lý",
     href: "",
+    icon: "fi fi-br-mobile-notch",
   },
   {
-    name: "Phụ kiện",
+    name: "Chính sách bảo hành",
     href: "",
+    icon: "fi fi-bs-shield-check",
   },
 ];
