@@ -77,6 +77,18 @@
         }
     }
 
+    &.soft-peach {
+        background-color: var(--soft-peach);
+        border-color: var(--soft-peach);
+        color: black;
+        border-radius: 0;
+
+        &:hover {
+            background-color: var(--gainsboro);
+            border-color: --gainsboro;
+        }
+    }
+
     &.square {
         border-radius: 50%;
         background-color: var(--soft-peach);

@@ -22,8 +22,10 @@ import Icon from "@/components/atoms/Icon/Icon";
 import { currencyFormatType } from "@/modules/business-logic/lib/currency/process/context";
 import { usePathname } from "next/navigation";
 import { useGetCartItems } from "@/modules/business-logic/lib/cart";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
   const cartData = useGetCartItems();
   const isLoggedIn = useIsLogged();
   const pathname = usePathname();
@@ -185,7 +187,12 @@ const Header = () => {
               </li>
             ) : (
               <li className="login-button">
-                <CommonButton style="fill">Đăng nhập</CommonButton>
+                <CommonButton
+                  style="fill"
+                  onClick={() => router.push(PAGE_URLS.LOGIN)}
+                >
+                  Đăng nhập
+                </CommonButton>
               </li>
             )}
           </ul>

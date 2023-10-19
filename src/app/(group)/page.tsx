@@ -165,7 +165,7 @@ export default function Home() {
             onClick={() => {
               isLoggedIn
                 ? router.push(PAGE_URLS.ACTIVATE_DEVICE)
-                : router.push(PAGE_URLS.AUTHENTICATION);
+                : router.push(PAGE_URLS.LOGIN);
             }}
           >
             Bắt đầu ngay

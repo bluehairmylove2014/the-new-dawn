@@ -1,0 +1,31 @@
+@import '@/app/mixins.scss';
+
+.auth-input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid var(--verdigris);
+    border-radius: 5px;
+    background-color: inherit;
+    position: relative;
+
+    input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+        padding: 0 20px;
+    }
+
+    label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 20px;
+        transform: translateY(-50%);
+        background-color: inherit;
+        padding: 0 8px;
+    }
+}

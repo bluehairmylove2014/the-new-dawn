@@ -9,7 +9,9 @@ export const PAGE_URLS = {
   GUIDE: "/guide",
   ACTIVATE_DEVICE: "/active",
   APPLICATION: "/app",
-  AUTHENTICATION: "/auth",
+  LOGIN: "/auth/login",
+  REGISTER: "/auth/register",
+  PROVIDE_INFO: "checkout-info",
 };
 
 export const CRUMBS_TEMPLATE = [
