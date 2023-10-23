@@ -21,17 +21,16 @@ export const cartReducer = (
         if (!action.payload.quantity) {
           // No quantity => Delete product
           state.cart.items = state.cart.items.filter(
-            (p) => p.item.id !== action.payload.productId
+            (p) => p.item.productId !== action.payload.productId
           );
           return {
             ...state,
           };
         }
         // Else decrease quantity
-        console.log("RUN HERE");
         state.cart.items = state.cart.items.map((p) => {
           if (
-            p.item.id === action.payload.productId &&
+            p.item.productId === action.payload.productId &&
             action.payload.quantity
           ) {
             p.quantity -= action.payload.quantity;

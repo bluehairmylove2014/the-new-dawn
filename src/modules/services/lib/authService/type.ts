@@ -5,9 +5,7 @@ export type RegisterParams = Pick<
   IAccount,
   "email" | "firstName" | "lastName" | "password"
 >;
-export type LoginParams = {
-  isRememberMe: boolean;
-} & Pick<IAccount, "email" | "password">;
+export type LoginParams = Pick<IAccount, "email" | "password">;
 
 export type AuthenticationResponse = {
   message: string;

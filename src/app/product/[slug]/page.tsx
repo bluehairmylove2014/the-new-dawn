@@ -5,8 +5,6 @@ import {
   calculateDiscountedPrice,
   onConvertNumberToCurrency,
 } from "@/utils/helpers";
-import BuyButton from "./BuyButton";
-import AddToCartButton from "./AddToCartButton";
 import ProductGallery from "@/components/molecules/ProductGallery/ProductGallery";
 import PoliciesBar from "@/components/molecules/PoliciesBar/PoliciesBar";
 import React from "react";
@@ -23,17 +21,17 @@ const Product = async ({ params }: { params: { slug: string } }) => {
   const generateProductDetails = (details: detailsType) => {
     return Array.isArray(details) ? (
       details.map((pd, index) => {
-        if (pd.tag === "img") {
+        if (pd.productDetailTag === "img") {
           return (
             <div className="details__img" key={`img@${index}`}>
-              <Image src={pd.src} alt={pd.alt} fill />
+              <Image src={pd.productDetailSrc} alt={pd.productDetailAlt} fill />
             </div>
           );
         } else {
           return React.createElement(
-            pd.tag,
+            pd.productDetailTag,
             { key: `non-img@${index}` },
-            pd.children
+            pd.productDetailChildren
           );
         }
       })
@@ -51,7 +49,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
           </div>
           <div className="product__overview container">
             <div className="overview__images">
-              <ProductGallery images={productData.images} />
+              <ProductGallery images={productData.productImages} />
             </div>
             <div className="overview__content">
               <strong>
@@ -61,47 +59,49 @@ const Product = async ({ params }: { params: { slug: string } }) => {
                 </CustomLink> */}
               </strong>
               <h1>Đồng hồ thông minh HELIOS PRO</h1>
-              <small className={productData.outOfStock ? "out" : "on"}>
-                Tình trạng: {productData.outOfStock ? "Hết hàng" : "Còn hàng"}
+              <small className={productData.productStock === 0 ? "out" : "on"}>
+                Tình trạng:{" "}
+                {productData.productStock === 0 ? "Hết hàng" : "Còn hàng"}
               </small>
 
               <div className="content__feature">
-                {productData.features.map((pf, index) => (
-                  <p key={`feature@${index}`}>
-                    <i className="fi fi-br-caret-right"></i>&nbsp;{pf}
+                {productData.productFeatures.map((pf) => (
+                  <p key={`feature@${pf.featureId}`}>
+                    <i className="fi fi-br-caret-right"></i>&nbsp;
+                    {pf.featureName}
                   </p>
                 ))}
               </div>
 
               <div className="content__price">
-                {productData.discount > 0 ? (
+                {productData.productDiscount > 0 ? (
                   <>
                     <p>
                       {onConvertNumberToCurrency(
                         calculateDiscountedPrice(
-                          productData.price,
-                          productData.discount
+                          productData.productPrice,
+                          productData.productDiscount
                         ).amountToPay
                       )}
                       <span>
                         {onConvertNumberToCurrency(
                           calculateDiscountedPrice(
-                            productData.price,
-                            productData.discount
+                            productData.productPrice,
+                            productData.productDiscount
                           ).discountedPrice +
                             calculateDiscountedPrice(
-                              productData.price,
-                              productData.discount
+                              productData.productPrice,
+                              productData.productDiscount
                             ).amountToPay
                         )}
                       </span>
                     </p>
                     <div className="price__sale">
-                      - {productData.discount * 100} %
+                      - {productData.productDiscount * 100} %
                     </div>
                   </>
                 ) : (
-                  <p>{onConvertNumberToCurrency(productData.price)}</p>
+                  <p>{onConvertNumberToCurrency(productData.productPrice)}</p>
                 )}
               </div>
               <QuantityHandler productData={{ ...productData }} />
@@ -113,7 +113,7 @@ const Product = async ({ params }: { params: { slug: string } }) => {
           <div className="product__detail container">
             <div className="detail__features">
               {productData ? (
-                generateProductDetails(productData.details)
+                generateProductDetails(productData.productDetails)
               ) : (
                 <></>
               )}
@@ -128,10 +128,10 @@ const Product = async ({ params }: { params: { slug: string } }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {productData.specifications.map((spec, index) => (
+                  {productData.productSpecifications.map((spec, index) => (
                     <tr key={index}>
-                      <td>{spec.name}</td>
-                      <td>{spec.detail}</td>
+                      <td>{spec.productSpecificationName}</td>
+                      <td>{spec.productSpecificationDetail}</td>
                     </tr>
                   ))}
                 </tbody>

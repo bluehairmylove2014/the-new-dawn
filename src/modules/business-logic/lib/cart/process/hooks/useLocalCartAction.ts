@@ -10,10 +10,10 @@ type UseLocalCartActionType = {
   setCart: (cartData: ICart | null) => void;
   addToCart: (productData: IProduct, quantity: number) => void;
   decreaseItemQuantityLocalStorage: (
-    productID: string,
+    productID: number,
     quantity: number
   ) => void;
-  deleteFromCartLocalStorage: (productID: string) => void;
+  deleteFromCartLocalStorage: (productID: number) => void;
 };
 export const useLocalCartAction = (): UseLocalCartActionType => {
   const { dispatch } = useCartContext();
@@ -40,7 +40,7 @@ export const useLocalCartAction = (): UseLocalCartActionType => {
         // Need to add is already in the cart or not, if yes then add
         // The quantity. Not yet then push to the top (for user to see :V)
         const productInCart = newCart.items.find(
-          (p) => p.item.id === product.id
+          (p) => p.item.productId === product.productId
         );
         if (productInCart) {
           productInCart.quantity += quantity;
@@ -57,14 +57,14 @@ export const useLocalCartAction = (): UseLocalCartActionType => {
     }
   };
   const decreaseItemQuantityLocalStorage = (
-    productID: string,
+    productID: number,
     quantity: number
   ) => {
     const localCart = getCartLocalStorage(); // Get cart from LocalStorage
     if (localCart?.items) {
       // Case if cart is in LocalStorage
       const targetProduct = localCart.items.find(
-        (p) => p.item.id === productID
+        (p) => p.item.productId === productID
       );
       if (targetProduct) {
         targetProduct.quantity -= quantity;
@@ -72,11 +72,13 @@ export const useLocalCartAction = (): UseLocalCartActionType => {
       setCartLocalStorage(localCart);
     }
   };
-  const deleteFromCartLocalStorage = (productID: string) => {
+  const deleteFromCartLocalStorage = (productID: number) => {
     const localCart = getCartLocalStorage(); // Get cart from LocalStorage
     if (localCart?.items) {
       // Case if cart is in LocalStorage
-      localCart.items = localCart.items.filter((p) => p.item.id !== productID);
+      localCart.items = localCart.items.filter(
+        (p) => p.item.productId !== productID
+      );
 
       setCartLocalStorage(localCart);
     }

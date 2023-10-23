@@ -24,7 +24,7 @@ export default function Cart() {
   const [noteInputValue, setNoteInputValue] = useState<string>("");
   const productTotal = Array.isArray(cartItemList)
     ? cartItemList.reduce(
-        (acc, item) => acc + item.quantity * item.item.price,
+        (acc, item) => acc + item.quantity * item.item.productPrice,
         0
       )
     : null;
@@ -44,7 +44,7 @@ export default function Cart() {
 
   const handleDeleteItem = (cartItem: ICartItem) => {
     setIsDeleting(true);
-    onDeleteItem(cartItem.item.id)
+    onDeleteItem(cartItem.item.productId)
       .then((msg) => {
         showSuccess(msg);
       })
@@ -67,17 +67,17 @@ export default function Cart() {
                 cartItemList.map((cartItem) => (
                   <div
                     className={`item ${isDeleting ? "deleting" : ""}`}
-                    key={cartItem.item.id}
+                    key={cartItem.item.productId}
                   >
                     <Checkbox
                       label=""
-                      name={cartItem.item.id}
+                      name={`cart_item@${cartItem.item.productId}`}
                       onCheck={() => {}}
                     />
                     <div className="item__img">
                       <Image
-                        src={cartItem.item.thumbnail}
-                        alt={cartItem.item.name}
+                        src={cartItem.item.productThumbnail}
+                        alt={cartItem.item.productName}
                         width={100}
                         height={100}
                       />
@@ -94,7 +94,7 @@ export default function Cart() {
                       </CommonButton>
                     </div>
                     <div className="item__info">
-                      <h3>{cartItem.item.name}</h3>
+                      <h3>{cartItem.item.productName}</h3>
                       <div className="info__quantity">
                         <p>Số lượng:</p>
                         <Quantity
@@ -113,7 +113,7 @@ export default function Cart() {
                                   .catch((error) => showError(error.message));
                               } else if (quantity < cartItem.quantity) {
                                 onDecreaseItem({
-                                  productId: cartItem.item.id,
+                                  productId: cartItem.item.productId,
                                   quantity: cartItem.quantity - quantity,
                                 })
                                   .then((msg) => showSuccess(msg))
@@ -125,7 +125,7 @@ export default function Cart() {
                       </div>
                       <strong>
                         {onConvertNumberToCurrency(
-                          cartItem.item.price * cartItem.quantity
+                          cartItem.item.productPrice * cartItem.quantity
                         )}
                       </strong>
                     </div>

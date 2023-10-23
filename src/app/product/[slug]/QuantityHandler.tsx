@@ -11,7 +11,12 @@ const QuantityHandler = ({ productData }: { productData: IProductDetail }) => {
 
   useEffect(() => {
     if (productData) {
-      const { images, specifications, details, ...newProduct } = productData;
+      const {
+        productImages,
+        productSpecifications,
+        productDetails,
+        ...newProduct
+      } = productData;
       setProduct(newProduct);
     }
   }, [productData]);
@@ -29,7 +34,7 @@ const QuantityHandler = ({ productData }: { productData: IProductDetail }) => {
           }}
         />
       </div>
-      {!product || product.outOfStock ? (
+      {!product || product.productStock === 0 ? (
         <></>
       ) : (
         <div className="content__interact-wrapper">

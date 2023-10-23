@@ -1,10 +1,18 @@
 export interface IUser {
-  id: string;
-  name: string;
-  address: string;
+  userId: number;
   email: string;
-  phoneNumber: string;
   avatar: string;
-  country: string;
-  rank: string;
+  fullName: string;
+  phoneNumber: string;
+  isSocial: boolean;
+  userCreatedAt: string;
+  rankId: 4;
+  rankName: string;
+  rankCreatedAt: string;
+  addressId: 4;
+  country: string | null;
+  province: string | null;
+  district: string | null;
+  ward: string | null;
+  streetAddress: string | null;
 }

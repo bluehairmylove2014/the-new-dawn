@@ -8,7 +8,6 @@ import { CommonButton } from "@/components/atoms/CommonButton/CommonButton";
 const maxListElement = 4;
 const ProductGallery = ({ images }: { images: productImagesType | null }) => {
   const [selectedImage, setSelectedImage] = useState<number>(0);
-  console.log("RECEIVE IMAGE: ", images);
   return (
     <div className="product-gallery">
       {Array.isArray(images) ? (
@@ -43,8 +42,8 @@ const ProductGallery = ({ images }: { images: productImagesType | null }) => {
               </CommonButton>
             </div>
             <Image
-              src={images[selectedImage].src}
-              alt={images[selectedImage].alt}
+              src={images[selectedImage].imageSrc}
+              alt={images[selectedImage].imageAlt}
               fill
             />
           </div>
@@ -55,11 +54,11 @@ const ProductGallery = ({ images }: { images: productImagesType | null }) => {
               } else {
                 return (
                   <button
-                    key={im.id}
+                    key={im.imageId}
                     onClick={() => setSelectedImage(index)}
                     className={selectedImage === index ? "active" : ""}
                   >
-                    <Image src={im.src} alt={im.alt} fill />
+                    <Image src={im.imageSrc} alt={im.imageAlt} fill />
                   </button>
                 );
               }

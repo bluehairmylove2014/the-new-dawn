@@ -1,0 +1,42 @@
+@import '@/app/mixins.scss';
+
+.me-wrapper {
+    width: 100%;
+    height: fit-content;
+    margin-top: 2rem;
+
+    .me {
+        background-color: white;
+        // columns - row - gap
+        @include dgrid(auto 1fr, auto, 0);
+        padding: 2rem 1rem;
+
+        .me__tabs {
+            border-right: 1px solid var(--verdigris);
+            width: fit-content;
+            height: 100%;
+            padding-right: 1.25rem;
+
+            ul {
+                // direction - justify content - align items - flex wrap
+                @include dflex(column, flex-start, flex-start, nowrap);
+                gap: 15px;
+                grid-column: 1;
+
+                li {
+                    width: 100%;
+                    height: fit-content;
+
+                    button:hover {
+                        color: var(--saffron-mango)
+                    }
+                }
+            }
+        }
+
+        .me__content {
+            grid-column: 2;
+            margin-left: 1.75rem;
+        }
+    }
+}

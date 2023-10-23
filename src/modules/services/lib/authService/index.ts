@@ -64,10 +64,9 @@ export class AuthService extends Services {
         method: "POST",
         url: refreshTokenUrl,
         schema: refreshTokenResponseSchema,
-        params: { refreshToken },
+        data: { refreshToken },
         signal: this.abortController.signal,
         transformResponse: (res) => res,
-        isProduction: true,
       });
       return response;
     } catch (error) {

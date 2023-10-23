@@ -18,9 +18,6 @@ const AddToCartButton = ({
   const { onAddToCart, isLoading } = useAddToCart();
   const { showError, showSuccess } = useNotification();
 
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
   return (
     <CommonButton
       style={"modern-onlyBorder"}

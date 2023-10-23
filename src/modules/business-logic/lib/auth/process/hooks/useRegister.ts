@@ -9,7 +9,6 @@ import { useAccessToken } from "./useAccessToken";
 import { useAuthBroadcastChannel } from "./useAuthBroadcastChannel";
 import { useHandleRefreshToken } from "./useHandleRefreshToken";
 
-const isRememberMeDefault = false;
 type UseRegisterType = {
   onRegister: (params: RegisterParams) => Promise<string>;
   isLoading: boolean;
@@ -30,13 +29,12 @@ export const useRegister = (): UseRegisterType => {
           // On success, if token is present, store it in session storage and update context
 
           if (response.token) {
-            setToken(response.token, isRememberMeDefault);
-            setRefreshToken(response.refreshToken, isRememberMeDefault);
+            setToken(response.token);
+            setRefreshToken(response.refreshToken);
             postMessage({
               message: BROADCAST_MESSAGE.SEND_TOKEN,
               token: response.token,
               refreshToken: response.refreshToken,
-              isRemember: isRememberMeDefault,
             });
             resolve(response.message);
           } else {

@@ -21,12 +21,12 @@ export type UpdateCartResponse = MessageResponse;
 
 export type DecreaseItemQuantityParams = {
   accessToken?: string | null;
-  productId: string;
+  productId: number;
   quantity: number;
 };
 export type DeleteFromCartParams = {
   accessToken?: string | null;
-  productId: string;
+  productId: number;
 };
 export type DeleteFromCartResponse = MessageResponse;
 

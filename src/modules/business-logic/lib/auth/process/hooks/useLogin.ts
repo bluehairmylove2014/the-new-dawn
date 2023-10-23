@@ -19,20 +19,19 @@ export const useLogin = (): UseLoginType => {
   const { setToken } = useAccessToken();
   const { setRefreshToken } = useHandleRefreshToken();
 
-  const onLogin = (params: LoginParams): Promise<string> => {
+  const onLogin = ({ email, password }: LoginParams): Promise<string> => {
     return new Promise((resolve, reject) => {
       loginMutation
-        .mutateAsync(params)
+        .mutateAsync({ email, password })
         .then((response: AuthenticationResponse) => {
           if (response.token) {
-            setToken(response.token, params.isRememberMe);
-            setRefreshToken(response.refreshToken, params.isRememberMe);
+            setToken(response.token);
+            setRefreshToken(response.refreshToken);
             // Broadcasting the login message
             postMessage({
               message: BROADCAST_MESSAGE.SEND_TOKEN,
               token: response.token,
               refreshToken: response.refreshToken,
-              isRemember: params.isRememberMe,
             });
             // Resolving the promise with the response
             resolve(response.message);

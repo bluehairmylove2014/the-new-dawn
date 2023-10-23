@@ -1,34 +1,62 @@
 import { z } from "zod";
 
+const productImagesSchema = z.array(
+  z.object({
+    imageId: z.number(),
+    imageSrc: z.string(),
+    imageAlt: z.string(),
+    imageCreatedAt: z.string(),
+  })
+);
+const productDetailsSchema = z.array(
+  z.object({
+    productDetailId: z.number(),
+    productDetailTag: z.string(),
+    productDetailChildren: z.any().nullable(),
+    productDetailSrc: z.string().nullable(),
+    productDetailAlt: z.string().nullable(),
+  })
+);
+const productSpecificationsSchema = z.array(
+  z.object({
+    productSpecificationId: z.number(),
+    productSpecificationName: z.string(),
+    productSpecificationDetail: z.string(),
+  })
+);
+const productFeaturesSchema = z.array(
+  z.object({
+    featureId: z.number(),
+    featureName: z.string(),
+  })
+);
+
 const getProductResponseSchema = z.object({
-  id: z.string(),
-  thumbnail: z.string(),
-  name: z.string(),
-  features: z.array(z.string()),
-  price: z.number(),
-  discount: z.number(),
-  outOfStock: z.boolean(),
-  images: z.array(
-    z.object({
-      id: z.number(),
-      src: z.string(),
-      alt: z.string(),
-    })
-  ),
-  details: z.array(
-    z.object({
-      tag: z.string(),
-      children: z.any().optional(),
-      src: z.string().optional(),
-      alt: z.string().optional(),
-    })
-  ),
-  specifications: z.array(
-    z.object({
-      name: z.string(),
-      detail: z.string(),
-    })
-  ),
+  productId: z.number(),
+  productThumbnail: z.string().url(),
+  productName: z.string(),
+  productCategory: z.string(),
+  productPrice: z.number(),
+  productDiscount: z.number(),
+  productStock: z.number(),
+  productCreatedAt: z.string(),
+  productFeatures: productFeaturesSchema,
+  productImages: productImagesSchema,
+  productDetails: productDetailsSchema,
+  productSpecifications: productSpecificationsSchema,
 });
 
-export { getProductResponseSchema };
+const getHotProductResponseSchema = z.array(
+  z.object({
+    productId: z.number(),
+    productThumbnail: z.string().url(),
+    productName: z.string(),
+    productPrice: z.number(),
+    productDiscount: z.number(),
+    productStock: z.number(),
+    productCreatedAt: z.string(),
+    productFeatures: productFeaturesSchema,
+  })
+);
+
+export { getProductResponseSchema, getHotProductResponseSchema };

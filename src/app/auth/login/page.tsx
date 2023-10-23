@@ -5,9 +5,7 @@ const Login = () => {
   return (
     <main className="login">
       <div className="login__box-content">
-        <div className="box-content__login">
-          <LoginModel />
-        </div>
+        <LoginModel />
       </div>
     </main>
   );

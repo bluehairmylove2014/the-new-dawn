@@ -2,7 +2,6 @@
 import { RefreshTokenResponse } from "../../../../../services";
 import { BROADCAST_MESSAGE } from "../../constants";
 import { useRefreshTokenMutation } from "../../fetching/mutation";
-import { getIsRememberMeLocalStorage } from "../helper/localStorageHelper";
 import { useAccessToken } from "./useAccessToken";
 import { useAuthBroadcastChannel } from "./useAuthBroadcastChannel";
 // import { useHandleRefreshToken } from "./useHandleRefreshToken";
@@ -18,7 +17,7 @@ export const useRefreshToken = (): UseRefreshTokenType => {
   const refreshTokenMutation = useRefreshTokenMutation();
 
   // Get the resetToken and getToken functions from useAccessToken
-  const { resetToken } = useAccessToken();
+  const { setToken } = useAccessToken();
   // const { resetRefreshToken } = useHandleRefreshToken();
 
   // Defining the onLogin function
@@ -30,7 +29,7 @@ export const useRefreshToken = (): UseRefreshTokenType => {
           // Check if res.token is undefined
           if (res.token) {
             // Update the new token on the client
-            resetToken(res.token);
+            setToken(res.token);
             // resetRefreshToken(res.refreshToken);
             // Broadcasting the login message
             postMessage({
@@ -38,7 +37,6 @@ export const useRefreshToken = (): UseRefreshTokenType => {
               token: res.token,
               // refreshToken: res.refreshToken,
               refreshToken: null,
-              isRemember: getIsRememberMeLocalStorage(),
             });
             resolve(res);
           } else {

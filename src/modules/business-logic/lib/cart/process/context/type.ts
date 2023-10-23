@@ -5,7 +5,7 @@ export interface CartState {
   accessToken: string | null;
 }
 
-type DeleteItemPayload = { productId: string; quantity?: number };
+type DeleteItemPayload = { productId: number; quantity?: number };
 
 export type CartAction =
   | {

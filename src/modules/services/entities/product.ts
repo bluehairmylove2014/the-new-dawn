@@ -1,35 +1,39 @@
 export interface IProduct {
-  id: string;
-  thumbnail: string;
-  name: string;
-  features: string[];
-  price: number;
-  discount: number;
-  outOfStock: boolean;
+  productId: number;
+  productThumbnail: string;
+  productName: string;
+  productPrice: number;
+  productDiscount: number;
+  productStock: number;
+  productCreatedAt: string;
+  productFeatures: {
+    featureId: number;
+    featureName: string;
+  }[];
 }
 
 export type productImagesType = {
-  id: number;
-  src: string;
-  alt: string;
+  imageId: number;
+  imageSrc: string;
+  imageAlt: string;
 }[];
 export type detailsType = (
   | {
-      tag: "h3" | "h6" | "p";
-      children: any;
+      productDetailTag: "h3" | "h6" | "p";
+      productDetailChildren: any;
     }
   | {
-      tag: "img";
-      src: string;
-      alt: string;
+      productDetailTag: "img";
+      productDetailSrc: string;
+      productDetailAlt: string;
     }
 )[];
 export type specificationsType = {
-  name: string;
-  detail: string;
+  productSpecificationName: string;
+  productSpecificationDetail: string;
 }[];
 export interface IProductDetail extends IProduct {
-  images: productImagesType;
-  details: detailsType;
-  specifications: specificationsType;
+  productImages: productImagesType;
+  productDetails: detailsType;
+  productSpecifications: specificationsType;
 }

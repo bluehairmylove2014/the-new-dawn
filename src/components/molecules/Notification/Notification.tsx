@@ -1,70 +1,43 @@
-"use client";
-
-import { toggleClassNoListener } from "@/utils/helpers";
-import { useEffect, useRef, useState } from "react";
 import "./styles.scss";
-// import successIcon from "@/assets/icons/success.png";
-// import errorIcon from "@/assets/icons/error.png";
-// import Image from "next/image";
+import { Toaster, toast } from "sonner";
 
-export type notificationStatusType = "SUCCESS" | "ERROR";
 export type notificationContentType = string;
 
-let updateNotificationState: null | Function = null;
-const defaultStatus = "SUCCESS";
-// const statusIcon = {
-//   SUCCESS: <Image src={successIcon} alt="success" width={20} height={20} />,
-//   ERROR: <Image src={errorIcon} alt="success" width={20} height={20} />,
-// };
-
 const Notification = () => {
-  const notificationRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    updateNotificationState = (
-      type: notificationStatusType,
-      content: notificationContentType
-    ) => {
-      if (!notificationRef.current) return;
-      const contradictoryClass: notificationStatusType =
-        type === "SUCCESS" ? "ERROR" : "SUCCESS";
-      if (notificationRef.current.classList.contains(contradictoryClass)) {
-        notificationRef.current.classList.remove(contradictoryClass);
-        notificationRef.current.classList.add(type);
-      }
-      notificationRef.current.innerHTML = content;
-      toggleClassNoListener(notificationRef.current, "active");
-      setTimeout(() => {
-        notificationRef.current &&
-          toggleClassNoListener(notificationRef.current, "active");
-      }, 1500); // 1.5s
-    };
-  }, []);
-
   return (
-    <div
-      className={`notification ${defaultStatus}`}
-      ref={notificationRef}
-      id="global-notification"
-    ></div>
+    <>
+      <Toaster expand={false} richColors closeButton position="top-right" />
+    </>
   );
 };
 
 type useNotificationType = {
   showSuccess: (content: notificationContentType) => void;
   showError: (content: notificationContentType) => void;
+  showReactHookFormError: (rhfError: {
+    [key: string]: {
+      message: string;
+    };
+  }) => void;
 };
 export const useNotification = (): useNotificationType => {
   const showSuccess = (content: notificationContentType) => {
-    updateNotificationState && updateNotificationState("SUCCESS", content);
+    toast.success(content);
   };
   const showError = (content: notificationContentType) => {
-    console.log("SHOW NOTIFICATION: ", updateNotificationState);
-    updateNotificationState && updateNotificationState("ERROR", content);
+    toast.error(content);
+  };
+  const showReactHookFormError = (rhfError: {
+    [key: string]: {
+      message: string;
+    };
+  }) => {
+    toast.error(rhfError[Object.keys(rhfError)[0]].message);
   };
   return {
     showSuccess,
     showError,
+    showReactHookFormError,
   };
 };
 

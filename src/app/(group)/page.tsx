@@ -3,8 +3,6 @@
 import Image from "next/image";
 import "./styles.scss";
 import { CommonButton } from "@/components/atoms/CommonButton/CommonButton";
-import { IProduct } from "@/modules/services/entities";
-import ProductCard from "@/components/molecules/ProductCard/ProductCard";
 
 import guideStepIcon1 from "@/assets/icons/login.png";
 import guideStepIcon2 from "@/assets/icons/power.png";
@@ -12,63 +10,18 @@ import guideStepIcon3 from "@/assets/icons/touch.png";
 import Icon from "@/components/atoms/Icon/Icon";
 import { useRouter } from "next/navigation";
 import { PAGE_URLS } from "@/constants/pages";
-import { useIsLogged } from "@/modules/business-logic/lib/auth";
 
 import heliosGraphic from "@/assets/graphics/helios.png";
 import blogGraphic1 from "@/assets/graphics/yasin-hasan-Od3vrRKvPBk-unsplash.jpg";
 import blogGraphic2 from "@/assets/graphics/piggybank-pbsxykvExdM-unsplash.jpg";
 import blogGraphic3 from "@/assets/graphics/minh-pham-3s9s0sY666A-unsplash.jpg";
 import blogGraphic4 from "@/assets/graphics/jet-dela-cruz-6p2AkWAIC8E-unsplash.jpg";
+import HotProductList from "./HotProductList";
+import StartGuideButton from "./StartGuideButton";
+import NavigateButton from "@/components/atoms/NavigateButton/NavigateButton";
 
 export default function Home() {
-  const products: IProduct[] = [
-    {
-      id: "19057grtbeukfa198",
-      thumbnail: "https://thenewdawn.b-cdn.net/products/helios/thumbnail.png",
-      name: "Đồng hồ thông minh HELIOS thường",
-      features: [
-        "Thoải mái thay đổi hình nền",
-        "Có dự báo thời tiết",
-        "Màn hình FHD sắc nét",
-        "Tích hợp loa cao cấp (nghe nhạc, xem phim)",
-      ],
-      price: 350000,
-      discount: 0.125,
-      outOfStock: false,
-    },
-    {
-      id: "1923eukfa198",
-      thumbnail:
-        "https://thenewdawn.b-cdn.net/products/helios_pro/thumbnail.png",
-      name: "Đồng hồ thông minh HELIOS PRO",
-      features: [
-        "Có tất cả tính năng của bản thường",
-        "Màn hình được nâng cấp rõ rệt",
-        "Khung kim loại chắc chắn",
-        "Tích hợp AI phản hồi và điều khuyển",
-      ],
-      price: 650000,
-      discount: 0.235,
-      outOfStock: false,
-    },
-    {
-      id: "19015beukfa198",
-      thumbnail:
-        "https://thenewdawn.b-cdn.net/products/helios_legendary/thumbnail.png",
-      name: "Robo EMO thông minh",
-      features: [
-        "Tự động khám phá thế giới",
-        "Giải trí cùng bạn mỗi ngày",
-        "Tự nhận biết, nghe, nhìn và học hỏi",
-        "Hỗ trợ bạn các công việc hằng ngày",
-      ],
-      price: 12000000,
-      discount: 0,
-      outOfStock: false,
-    },
-  ];
   const router = useRouter();
-  const isLoggedIn = useIsLogged();
   return (
     <main className="home">
       <section className="introduction__wrapper">
@@ -85,24 +38,21 @@ export default function Home() {
             </p>
             <div className="content__button-wrapper">
               <div className="button-wrapper__shop">
-                <CommonButton
+                <NavigateButton
+                  href={PAGE_URLS.SHOP}
                   style="modern-fill"
-                  onClick={() => {
-                    router.push(PAGE_URLS.SHOP);
-                  }}
+                  prefetching={true}
                 >
                   Đến cửa hàng
-                </CommonButton>
+                </NavigateButton>
               </div>
               <div className="button-wrapper__app">
-                <CommonButton
+                <NavigateButton
+                  href={PAGE_URLS.APPLICATION}
                   style="modern-onlyBorder"
-                  onClick={() => {
-                    router.push(PAGE_URLS.APPLICATION);
-                  }}
                 >
                   Tải phần mềm
-                </CommonButton>
+                </NavigateButton>
               </div>
             </div>
           </div>
@@ -112,12 +62,7 @@ export default function Home() {
         </div>
       </section>
       <section className="hot-products">
-        <h2>SẢN PHẨM NỔI BẬT</h2>
-        <div className="hot-products__list container">
-          {products.map((p) => (
-            <ProductCard key={p.id} productData={p} />
-          ))}
-        </div>
+        <HotProductList />
       </section>
       <section className="guide container">
         <h2>Dễ dàng sử dụng!</h2>
@@ -160,16 +105,7 @@ export default function Home() {
           </div>
         </div>
         <div className="guide__button-wrapper">
-          <CommonButton
-            style="modern-fill"
-            onClick={() => {
-              isLoggedIn
-                ? router.push(PAGE_URLS.ACTIVATE_DEVICE)
-                : router.push(PAGE_URLS.LOGIN);
-            }}
-          >
-            Bắt đầu ngay
-          </CommonButton>
+          <StartGuideButton />
         </div>
       </section>
       <section className="information">
@@ -201,14 +137,9 @@ export default function Home() {
               website. Bảo mật và tiện lợi!
             </p>
             <div className="content__action-button">
-              <CommonButton
-                style="modern-fill"
-                onClick={() => {
-                  router.push(PAGE_URLS.APPLICATION);
-                }}
-              >
+              <NavigateButton href={PAGE_URLS.APPLICATION} style="modern-fill">
                 Xem sản phẩm
-              </CommonButton>
+              </NavigateButton>
             </div>
           </div>
         </div>
@@ -227,14 +158,9 @@ export default function Home() {
               phát triển hơn trong tương lai.
             </p>
             <div className="content__action-button">
-              <CommonButton
-                style="modern-fill"
-                onClick={() => {
-                  router.push(PAGE_URLS.SHOP);
-                }}
-              >
+              <NavigateButton href={PAGE_URLS.SHOP} style="modern-fill">
                 Đến cửa hàng
-              </CommonButton>
+              </NavigateButton>
             </div>
           </div>
           <div className="article__images--right">

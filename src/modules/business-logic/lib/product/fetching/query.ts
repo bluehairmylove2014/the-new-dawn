@@ -9,3 +9,8 @@ export const useGetProductQuery = (productId: string) => {
     productService.getProduct({ productId })
   );
 };
+export const useGetHotProductQuery = () => {
+  return useQuery([QUERY_KEYS.GET_HOT_PRODUCT], () =>
+    productService.getHotProduct()
+  );
+};

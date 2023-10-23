@@ -18,11 +18,5 @@
 
         // direction - justify content - align items - flex wrap
         @include dflex(column, center, center, nowrap);
-
-        .box-content__login {
-            width: calc(100% - 3rem);
-            height: calc(100% - 3rem);
-            padding: 1.5rem;
-        }
     }
 }

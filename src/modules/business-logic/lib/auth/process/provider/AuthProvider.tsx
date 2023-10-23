@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
       // It means token is expired now! Need to refresh
       if (
         error.response?.status === 401 &&
-        // error.response.data?.message === "Invalid credential" &&
+        error.response.data?.message === "Invalid credential" &&
         authConfig.isNeedRefreshToken
       ) {
         // Get the token

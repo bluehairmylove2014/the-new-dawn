@@ -23,54 +23,57 @@ import { currencyFormatType } from "@/modules/business-logic/lib/currency/proces
 import { usePathname } from "next/navigation";
 import { useGetCartItems } from "@/modules/business-logic/lib/cart";
 import { useRouter } from "next/navigation";
+import { useGetUser } from "@/modules/business-logic/lib/user";
 
 const Header = () => {
   const router = useRouter();
   const cartData = useGetCartItems();
   const isLoggedIn = useIsLogged();
+
   const pathname = usePathname();
   const { addNewCrumb } = useCrumb();
-  const [selectedCurrency, setSelectedCurrency] = useState(moneyOptions[0]);
-  const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
-  const userData = {
-    id: "user001",
-    name: "Nguyễn Ba Phương",
-    email: "nbphuong@gmail.com",
-    phoneNumber: "0337839146",
-    address: "1264 Kha Vạn Cân, Linh Trung, Thủ Đức, Hồ Chí Minh",
-    avatar:
-      "https://rialloer.sirv.com/the_new_dawn/users/user001/avatar/minh-pham-3s9s0sY666A-unsplash.jpg",
-    country: "vi",
-    rank: "free",
-  };
+  // const [selectedCurrency, setSelectedCurrency] = useState(moneyOptions[0]);
+  // const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
+  const userData = useGetUser();
+  // const userData = {
+  //   id: "user001",
+  //   name: "Nguyễn Ba Phương",
+  //   email: "nbphuong@gmail.com",
+  //   phoneNumber: "0337839146",
+  //   address: "1264 Kha Vạn Cân, Linh Trung, Thủ Đức, Hồ Chí Minh",
+  //   avatar:
+  //     "https://rialloer.sirv.com/the_new_dawn/users/user001/avatar/minh-pham-3s9s0sY666A-unsplash.jpg",
+  //   country: "vi",
+  //   rank: "free",
+  // };
   const dispatch = useDispatch();
   const { onChangeCurrencyFormat } = useChangeCurrencyFormat();
   const { showSuccess, showError } = useNotification();
   const { showLoader, hideLoader } = useFullscreenLoaderController();
 
   // Methods
-  const handleChangeLanguage = (value: languageType): void => {
-    const selectLang = languageOptions.find((lo) => lo.value === value);
-    selectLang && setSelectedLanguage(selectLang);
-    dispatch(setLanguage(value));
-  };
-  const handleChangeCurrency = (value: currencyFormatType): void => {
-    const selectCur = moneyOptions.find((mo) => mo.value === value);
-    selectCur && setSelectedCurrency(selectCur);
+  // const handleChangeLanguage = (value: languageType): void => {
+  //   const selectLang = languageOptions.find((lo) => lo.value === value);
+  //   selectLang && setSelectedLanguage(selectLang);
+  //   dispatch(setLanguage(value));
+  // };
+  // const handleChangeCurrency = (value: currencyFormatType): void => {
+  //   const selectCur = moneyOptions.find((mo) => mo.value === value);
+  //   selectCur && setSelectedCurrency(selectCur);
 
-    showLoader();
-    onChangeCurrencyFormat(value)
-      .then((data) => {
-        showSuccess("Thành công");
-      })
-      .catch((error) => {
-        console.error("OUT ERROR: ", error);
-        showError("Thất bại! Xin hãy thử lại sau...");
-      })
-      .finally(() => {
-        hideLoader();
-      });
-  };
+  //   showLoader();
+  //   onChangeCurrencyFormat(value)
+  //     .then((data) => {
+  //       showSuccess("Thành công");
+  //     })
+  //     .catch((error) => {
+  //       console.error("OUT ERROR: ", error);
+  //       showError("Thất bại! Xin hãy thử lại sau...");
+  //     })
+  //     .finally(() => {
+  //       hideLoader();
+  //     });
+  // };
   const getRankIcon = (rank: string): StaticImageData => {
     return RANK[
       `${
@@ -160,7 +163,7 @@ const Header = () => {
               <li className="user">
                 <Link href={PAGE_URLS.PRICING} className="user__rank">
                   <Icon
-                    media={getRankIcon(userData.rank)}
+                    media={getRankIcon(userData.rankName)}
                     alt="rank"
                     customWidth={30}
                     customHeight={30}

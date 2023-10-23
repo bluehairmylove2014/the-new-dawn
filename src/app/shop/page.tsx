@@ -2,15 +2,18 @@
 import Breadcrumb from "@/components/molecules/Breadcrumb/Breadcrumb";
 import Link from "next/link";
 import "./styles.scss";
-import { IProduct } from "@/modules/services/entities";
 import ProductCard from "@/components/molecules/ProductCard/ProductCard";
 import { FILTER_OPTIONS, SORT_OPTIONS } from "@/constants/options";
 import Checkbox from "@/components/atoms/Checkbox/Checkbox";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useConvertCurrency } from "@/modules/business-logic/lib/currency/process/hooks/useConvertCurrency";
 import Slider from "@/components/atoms/Slider/Slider";
 import Pagination from "@/components/molecules/Pagination/Pagination";
-// import { GetServerSideProps } from "next";
+import CommonLoader from "@/components/atoms/CommonLoader/CommonLoader";
+import { useSearchProduct } from "@/modules/business-logic/lib/search";
+import { searchProductParams } from "@/modules/services";
+import Empty from "@/components/atoms/Empty/Empty";
+import { CommonButton } from "@/components/atoms/CommonButton/CommonButton";
 
 const budgetFilterLimit = {
   min: 0,
@@ -25,104 +28,16 @@ const Shop = () => {
     currentPage: 1,
     maxPage: 1,
   });
-  const products: IProduct[] = [
-    {
-      id: "19057grtbeukfa198",
-      thumbnail: "https://thenewdawn.b-cdn.net/products/helios/thumbnail.png",
-      name: "Đồng hồ thông minh HELIOS thường",
-      features: [
-        "Thoải mái thay đổi hình nền",
-        "Có dự báo thời tiết",
-        "Màn hình FHD sắc nét",
-        "Tích hợp loa cao cấp (nghe nhạc, xem phim)",
-      ],
-      price: 350000,
-      discount: 0.125,
-      outOfStock: false,
-    },
-    {
-      id: "1923eukfa198",
-      thumbnail:
-        "https://thenewdawn.b-cdn.net/products/helios_pro/thumbnail.png",
-      name: "Đồng hồ thông minh HELIOS PRO",
-      features: [
-        "Có tất cả tính năng của bản thường",
-        "Màn hình được nâng cấp rõ rệt",
-        "Khung kim loại chắc chắn",
-        "Tích hợp AI phản hồi và điều khuyển",
-      ],
-      price: 650000,
-      discount: 0.235,
-      outOfStock: false,
-    },
-    {
-      id: "19015beukfa198",
-      thumbnail:
-        "https://thenewdawn.b-cdn.net/products/helios_legendary/thumbnail.png",
-      name: "Robo EMO thông minh",
-      features: [
-        "Tự động khám phá thế giới",
-        "Giải trí cùng bạn mỗi ngày",
-        "Tự nhận biết, nghe, nhìn và học hỏi",
-        "Hỗ trợ bạn các công việc hằng ngày",
-      ],
-      price: 12000000,
-      discount: 0,
-      outOfStock: false,
-    },
-    {
-      id: "190tbeukfa198",
-      thumbnail: "https://thenewdawn.b-cdn.net/products/helios/thumbnail.png",
-      name: "Đồng hồ thông minh HELIOS thường",
-      features: [
-        "Thoải mái thay đổi hình nền",
-        "Có dự báo thời tiết",
-        "Màn hình FHD sắc nét",
-        "Tích hợp loa cao cấp (nghe nhạc, xem phim)",
-      ],
-      price: 350000,
-      discount: 0.125,
-      outOfStock: false,
-    },
-    {
-      id: "1923euka198",
-      thumbnail:
-        "https://thenewdawn.b-cdn.net/products/helios_pro/thumbnail.png",
-      name: "Đồng hồ thông minh HELIOS PRO",
-      features: [
-        "Có tất cả tính năng của bản thường",
-        "Màn hình được nâng cấp rõ rệt",
-        "Khung kim loại chắc chắn",
-        "Tích hợp AI phản hồi và điều khuyển",
-      ],
-      price: 650000,
-      discount: 0.235,
-      outOfStock: false,
-    },
-    {
-      id: "19015beukf8",
-      thumbnail:
-        "https://thenewdawn.b-cdn.net/products/helios_legendary/thumbnail.png",
-      name: "Robo EMO thông minh",
-      features: [
-        "Tự động khám phá thế giới",
-        "Giải trí cùng bạn mỗi ngày",
-        "Tự nhận biết, nghe, nhìn và học hỏi",
-        "Hỗ trợ bạn các công việc hằng ngày",
-      ],
-      price: 12000000,
-      discount: 0,
-      outOfStock: false,
-    },
-  ];
   const [budget, setBudget] = useState({
     min: budgetFilterLimit.min,
     max: budgetFilterLimit.max,
   });
-  const [searchKeys, setSearchKeys] = useState<string[]>([]);
+  const searchKeys = useRef<string>("");
   const [filterSelected, setFilterSelected] = useState<string[]>([]);
   const [sortSelected, setSortSelected] = useState<null | string>(null);
   const { onConvertNumberToCurrency } = useConvertCurrency();
+  const [searchCriteria, setSearchCriteria] = useState<searchProductParams>({});
+  const products = useSearchProduct(searchCriteria);
 
   const handleFilter = (name: string, value: boolean) => {
     if (value) {
@@ -130,18 +45,20 @@ const Shop = () => {
     } else {
       setFilterSelected(filterSelected.filter((fs) => fs !== name));
     }
-    refetch();
   };
   const handleSort = (name: string) => {
     setSortSelected(name);
-    refetch();
   };
   const handleSearch = () => {
-    //
-  };
-  const refetch = () => {
-    //
-    handleSearch();
+    setSearchCriteria({
+      name: searchKeys.current,
+      minBudget: budget.min,
+      maxBudget: budget.max,
+      category:
+        filterSelected.length > 0 ? filterSelected.join("@") : undefined,
+      sortBy: sortSelected || undefined,
+      page: 1,
+    });
   };
 
   const handleBudgetChange = (range: { min: number; max: number }) => {
@@ -149,11 +66,9 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    console.log(filterSelected);
-  }, [filterSelected]);
-  useEffect(() => {
-    console.log(sortSelected);
-  }, [sortSelected]);
+    handleSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterSelected, sortSelected]);
 
   return (
     <div className="shop container">
@@ -168,7 +83,18 @@ const Shop = () => {
         <div className="row">
           <form className="search-box">
             <label htmlFor="shop-search">Tìm kiếm sản phẩm...</label>
-            <input type="text" name="search" id="shop-search" />
+            <input
+              type="text"
+              name="search"
+              id="shop-search"
+              onChange={(e) => (searchKeys.current = e.target.value.trim())}
+              onKeyDown={(e) => {
+                console.log("KEY: ", e.key);
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+              }}
+            />
           </form>
         </div>
       </div>
@@ -189,6 +115,11 @@ const Shop = () => {
           <div className="budget__preview">
             <p>{onConvertNumberToCurrency(budget.min)}</p>
             <p>{onConvertNumberToCurrency(budget.max)}</p>
+          </div>
+          <div className="budget__submit-btn">
+            <CommonButton style="soft-peach" onClick={handleSearch}>
+              Lọc theo giá
+            </CommonButton>
           </div>
           <h6>Loại</h6>
           {FILTER_OPTIONS.category.map((cate) => (
@@ -213,39 +144,32 @@ const Shop = () => {
         </div>
       </aside>
       <main className="shop__product-list">
-        {Array.isArray(products) ? (
-          products.length > 0 ? (
-            <>
-              {products.map((p) => (
-                <ProductCard
-                  productData={p}
-                  key={p.id}
-                  size={"small"}
-                  autoFill={true}
-                ></ProductCard>
-              ))}
-              <Pagination
-                state={{ paginationState, setPaginationState }}
-                callback={() => {}}
-              />
-            </>
-          ) : (
-            <></>
-          )
-        ) : typeof products === "undefined" ? (
-          <></>
+        {typeof products === "undefined" ? (
+          <CommonLoader />
+        ) : products === null ||
+          (Array.isArray(products) && products.length === 0) ? (
+          <>
+            <Empty label="Không có sản phẩm phù hợp" customSize={100} />
+          </>
         ) : (
-          <></>
+          <>
+            {products.map((p) => (
+              <ProductCard
+                productData={p}
+                key={p.productId}
+                size={"small"}
+                autoFill={true}
+              ></ProductCard>
+            ))}
+            <Pagination
+              state={{ paginationState, setPaginationState }}
+              callback={() => {}}
+            />
+          </>
         )}
       </main>
     </div>
   );
 };
-
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   return {
-//     props: {},
-//   };
-// };
 
 export default Shop;

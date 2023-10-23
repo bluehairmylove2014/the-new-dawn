@@ -16,7 +16,7 @@ import { useLocalCartAction } from "./useLocalCartAction";
 const debounceDelayTime = 500;
 type UseDeleteFromType = {
   onDecreaseItem: (params: DecreaseItemQuantityParams) => Promise<string>;
-  onDeleteItem: (productID: string) => Promise<string>;
+  onDeleteItem: (productID: number) => Promise<string>;
   isLoading: boolean;
 };
 export const useDeleteFromCart = (): UseDeleteFromType => {
@@ -37,9 +37,8 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
   >((params: DecreaseItemQuantityParams): Promise<string> => {
     return new Promise(
       (resolve, reject: (error: Error | AxiosError) => void) => {
-        console.log("DELETE2");
         const targetProduct = state.cart?.items?.find(
-          (ci) => ci.item.id === params.productId
+          (ci) => ci.item.productId === params.productId
         );
         if (targetProduct && targetProduct.quantity > params.quantity) {
           if (state.accessToken) {
@@ -91,7 +90,7 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
       }
     );
   }, debounceDelayTime);
-  const onDeleteItem = (productID: string): Promise<string> => {
+  const onDeleteItem = (productID: number): Promise<string> => {
     return new Promise(
       (resolve, reject: (error: Error | AxiosError) => void) => {
         setIsLoading(true);
@@ -143,7 +142,6 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
   return {
     onDecreaseItem: (params: DecreaseItemQuantityParams): Promise<string> => {
       setIsLoading(true);
-      console.log("DELETE1");
       dispatch({
         type: "DELETE_ACTION",
         payload: {

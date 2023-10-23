@@ -33,7 +33,7 @@ const ProductCard = ({
   return productData ? (
     <Link
       prefetch={true}
-      href={PAGE_URLS.PRODUCT + "/" + productData.id}
+      href={PAGE_URLS.PRODUCT + "/" + productData.productId}
       className={`product-card ${size ? size : "medium"} ${
         autoFill ? "fill" : ""
       }`}
@@ -41,38 +41,40 @@ const ProductCard = ({
       <div className="card__header">
         <div className="card__image">
           <Image
-            src={productData.thumbnail}
-            alt={productData.name}
+            src={productData.productThumbnail}
+            alt={productData.productName}
             fill
             priority
           />
         </div>
-        <h4>{productData.name}</h4>
+        <h4>{productData.productName}</h4>
       </div>
       <div className="card__body">
         <div className="card__features">
-          {productData.features.map((feat) => (
-            <p key={productData.id + feat}>
+          {productData.productFeatures.map((feat) => (
+            <p key={productData.productId + "feat" + feat.featureId}>
               <i className="fi fi-br-rocket-lunch"></i>
-              {feat}
+              {feat.featureName}
             </p>
           ))}
         </div>
       </div>
       <div className="card__footer">
         <div className="card__price-cart">
-          {productData.discount > 0 ? (
+          {productData.productDiscount > 0 ? (
             <p>
               {onConvertNumberToCurrency(
                 calculateDiscountedPrice(
-                  productData.price,
-                  productData.discount
+                  productData.productPrice,
+                  productData.productDiscount
                 ).amountToPay
               )}
-              <small>{onConvertNumberToCurrency(productData.price)}</small>
+              <small>
+                {onConvertNumberToCurrency(productData.productPrice)}
+              </small>
             </p>
           ) : (
-            <p>{onConvertNumberToCurrency(productData.price)}</p>
+            <p>{onConvertNumberToCurrency(productData.productPrice)}</p>
           )}
           {/* {size && size === "small" ? (
             <></>

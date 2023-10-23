@@ -13,6 +13,8 @@ import { PAGE_URLS } from "@/constants/pages";
 import Icon from "@/components/atoms/Icon/Icon";
 import googleIcon from "@/assets/icons/search.png";
 import { useNotification } from "../Notification/Notification";
+import { useLogin } from "@/modules/business-logic/lib/auth";
+import { useRouter } from "next/navigation";
 
 const LoginModel = () => {
   const { control, handleSubmit } = useForm({
@@ -55,7 +57,9 @@ const LoginModel = () => {
       },
     },
   ];
-  const { showError } = useNotification();
+  const { onLogin, isLoading } = useLogin();
+  const { showSuccess, showError } = useNotification();
+  const router = useRouter();
 
   // Methods
   const handleSuccessSubmit = ({
@@ -65,7 +69,13 @@ const LoginModel = () => {
     email: string;
     password: string;
   }) => {
-    console.log({ email, password });
+    onLogin({ email, password })
+      .then((msg) => {
+        router.push(PAGE_URLS.HOME);
+      })
+      .catch((error) => {
+        showError(error.message);
+      });
   };
   const handleErrorSubmit = (errors: any) => {
     if (errors) {
@@ -105,11 +115,11 @@ const LoginModel = () => {
       </div>
 
       <div className="login-model__button">
-        <CommonButton style="soft-fill" type={"submit"}>
+        <CommonButton style="soft-fill" type={"submit"} loading={isLoading}>
           Đăng nhập
         </CommonButton>
       </div>
-      <p className="login-model__row ">Hoặc</p>
+      <small className="login-model__row ">Hoặc</small>
       <div className="login-model__button">
         <CommonButton style="soft-peach" onClick={() => {}}>
           <Icon
