@@ -1,22 +1,34 @@
 import UserDetail from "@/components/organisms/UserDetail/UserDetail";
 
-export type tabsType = {
-  [key: string]: {
-    component: () => JSX.Element;
-    label: string;
-  };
+export type tabType = {
+  component: () => JSX.Element;
+  labelIcon: string;
+  label: string;
+  key: string;
 };
-export const tabs: tabsType = {
-  USER_DETAIL: {
+export const tabs: tabType[] = [
+  {
     component: UserDetail,
-    label: "Thông tin cá nhân",
+    labelIcon: "fi fi-sr-user-crown",
+    label: "Thông tin tài khoản",
+    key: "USER_DETAIL",
   },
-  ORDER: {
+  {
     component: UserDetail,
+    labelIcon: "fi fi-sr-address-book",
+    label: "Sổ địa chỉ",
+    key: "ADDRESS",
+  },
+  {
+    component: UserDetail,
+    labelIcon: "fi fi-ss-box",
     label: "Đơn hàng của bạn",
+    key: "ORDER",
   },
-  CHANGE_PASSWORD: {
+  {
     component: UserDetail,
+    labelIcon: "fi fi-sr-lock",
     label: "Đổi mật khẩu",
+    key: "CHANGE_PASSWORD",
   },
-};
+];

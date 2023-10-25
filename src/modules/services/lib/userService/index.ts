@@ -26,6 +26,7 @@ export class UserService extends Services {
       });
       return response;
     } catch (error) {
+      console.log("ERROR: ", error);
       throw this.handleError(error);
     }
   };

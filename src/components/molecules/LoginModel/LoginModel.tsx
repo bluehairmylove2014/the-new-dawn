@@ -15,8 +15,13 @@ import googleIcon from "@/assets/icons/search.png";
 import { useNotification } from "../Notification/Notification";
 import { useLogin } from "@/modules/business-logic/lib/auth";
 import { useRouter } from "next/navigation";
+import { authMethod } from "@/app/auth/page";
 
-const LoginModel = () => {
+const LoginModel = ({
+  onChangeMethod,
+}: {
+  onChangeMethod: (method: authMethod) => void;
+}) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       email: "",
@@ -29,6 +34,7 @@ const LoginModel = () => {
       label: "Email",
       type: "email",
       control: control,
+      placeHolders: "example@gmail.com",
       rules: {
         required: "Email không được để trống",
         pattern: {
@@ -42,9 +48,10 @@ const LoginModel = () => {
     },
     {
       name: "password",
-      label: "Password",
+      label: "Mật khẩu",
       type: "password",
       control: control,
+      placeHolders: "TheNewDawnVN123",
       rules: {
         required: "Mật khẩu không được để trống",
         pattern: {
@@ -87,6 +94,7 @@ const LoginModel = () => {
     <form
       className="login-model"
       onSubmit={handleSubmit(handleSuccessSubmit, handleErrorSubmit)}
+      noValidate
     >
       <div className="login-model__logo">
         <Image src={logo} alt="the new dawn" fill />
@@ -103,6 +111,7 @@ const LoginModel = () => {
             name={inp.name}
             label={inp.label}
             control={inp.control}
+            placeHolders={inp.placeHolders}
             type={inp.type}
             rules={inp.rules}
             onChange={inp.onChange}
@@ -132,7 +141,12 @@ const LoginModel = () => {
         </CommonButton>
       </div>
       <div className="login-model__row center">
-        <Link href={PAGE_URLS.REGISTER}>Chưa có tài khoản? Đăng ký ngay</Link>
+        <CommonButton
+          style="none"
+          onClick={() => onChangeMethod && onChangeMethod("register")}
+        >
+          Chưa có tài khoản? Đăng ký ngay
+        </CommonButton>
       </div>
     </form>
   );

@@ -7,33 +7,37 @@ import CircleImage from "@/components/atoms/CircleImage/CircleImage";
 import AuthInput from "@/components/atoms/AuthInput/AuthInput";
 import { useForm } from "react-hook-form";
 import { useNotification } from "@/components/molecules/Notification/Notification";
+import { useEffect, useState } from "react";
+import { ValidateRegex } from "@/utils/validators/config";
 
 type formDataType = {
   email: string;
   fullName: string;
   phoneNumber: string;
-  country: string | null;
-  province: string | null;
-  ward: string | null;
-  district: string | null;
-  streetAddress: string | null;
 };
 const UserDetail = () => {
   const userData = useGetUser();
-  console.log(userData);
-  const { control, handleSubmit } = useForm({
+  const [isEnableSaveChanges, setIsEnableSaveChanges] =
+    useState<boolean>(false);
+  const { showReactHookFormError, showSuccess } = useNotification();
+  const { control, handleSubmit, reset, getValues } = useForm({
     defaultValues: {
-      email: userData?.email || "",
-      fullName: userData?.fullName || "",
-      phoneNumber: userData?.phoneNumber || "Trống",
-      country: userData?.country || "Trống",
-      province: userData?.province || "Trống",
-      ward: userData?.ward || "Trống",
-      district: userData?.district || "Trống",
-      streetAddress: userData?.streetAddress || "Trống",
+      email: "",
+      fullName: "",
+      phoneNumber: "",
     },
   });
-  const { showReactHookFormError, showSuccess } = useNotification();
+
+  useEffect(() => {
+    if (userData) {
+      reset({
+        email: userData.email || "",
+        fullName: userData.fullName || "",
+        phoneNumber: userData.phoneNumber || "",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData]);
 
   // Methods
   const handleChangeProfile = (data: formDataType) => {
@@ -42,6 +46,16 @@ const UserDetail = () => {
   };
   const handleSubmitError = (error: any) => {
     showReactHookFormError(error);
+  };
+  const checkUserDataIntegrity = (key: keyof formDataType, value: string) => {
+    if (userData) {
+      const trimValue = value.trim();
+      if ((!userData[key] && trimValue === "") || userData[key] === trimValue) {
+        setIsEnableSaveChanges(false);
+      } else {
+        setIsEnableSaveChanges(true);
+      }
+    }
   };
 
   return (
@@ -67,70 +81,67 @@ const UserDetail = () => {
           className="user-detail__info"
           onSubmit={handleSubmit(handleChangeProfile, handleSubmitError)}
         >
-          <AuthInput
-            name={"email"}
-            label={"Email"}
-            type="email"
-            control={control}
-            rules={{ required: "Email không được để trống" }}
-            onChange={() => {}}
-          />
-          <AuthInput
-            name={"fullName"}
-            label={"Họ và tên"}
-            type="text"
-            control={control}
-            rules={{ required: "Tên không được để trống" }}
-            onChange={() => {}}
-          />
-          <AuthInput
-            name={"phoneNumber"}
-            label={"Số điện thoại"}
-            type="text"
-            control={control}
-            rules={{}}
-            onChange={() => {}}
-          />
-          <AuthInput
-            name={"country"}
-            label={"Quốc gia"}
-            type="text"
-            control={control}
-            rules={{}}
-            onChange={() => {}}
-          />
-          <AuthInput
-            name={"province"}
-            label={"Tỉnh / Thành phố"}
-            type="text"
-            control={control}
-            rules={{}}
-            onChange={() => {}}
-          />
-          <AuthInput
-            name={"district"}
-            label={"Quận / Huyện"}
-            type="text"
-            control={control}
-            rules={{}}
-            onChange={() => {}}
-          />
-          <AuthInput
-            name={"ward"}
-            label={"Phường / Xã"}
-            type="text"
-            control={control}
-            rules={{}}
-            onChange={() => {}}
-          />
-          <AuthInput
-            name={"streetAddress"}
-            label={"Địa chỉ"}
-            type="text"
-            control={control}
-            rules={{}}
-            onChange={() => {}}
-          />
+          <div className="info__rows-wrapper">
+            <p className="info__row">
+              <div className="info__col">Email</div>
+              <div className="info__col">
+                <span>{userData?.email || "..."}</span>
+              </div>
+            </p>
+            <p className="info__row">
+              <div className="info__col">Họ và tên</div>
+              <div className="info__col">
+                <AuthInput
+                  name={"fullName"}
+                  label={""}
+                  type="text"
+                  control={control}
+                  placeHolders="..."
+                  rules={{
+                    required: "Tên không được để trống",
+                    maxLength: {
+                      value: 125,
+                      message: "Họ tên không được quá 125 ký tự",
+                    },
+                  }}
+                  onChange={(value) =>
+                    checkUserDataIntegrity("fullName", value)
+                  }
+                />
+              </div>
+            </p>
+            <p className="info__row">
+              <div className="info__col">Số điện thoại</div>
+              <div className="info__col">
+                <AuthInput
+                  name={"phoneNumber"}
+                  label={""}
+                  type="text"
+                  control={control}
+                  placeHolders="Chưa thiết đặt"
+                  rules={{
+                    pattern: {
+                      value: ValidateRegex.phoneNumber,
+                      message: "Số điện thoại không hợp lệ",
+                    },
+                  }}
+                  onChange={(value) =>
+                    checkUserDataIntegrity("phoneNumber", value)
+                  }
+                />
+              </div>
+            </p>
+          </div>
+
+          <div
+            className={`info__submit-btn ${
+              isEnableSaveChanges ? "active" : ""
+            }`}
+          >
+            <CommonButton style="soft-fill" type="submit">
+              Lưu thay đổi
+            </CommonButton>
+          </div>
         </form>
       </div>
     </div>

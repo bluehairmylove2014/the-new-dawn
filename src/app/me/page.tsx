@@ -2,12 +2,17 @@
 import Breadcrumb from "@/components/molecules/Breadcrumb/Breadcrumb";
 import "./styles.scss";
 import { CommonButton } from "@/components/atoms/CommonButton/CommonButton";
-import { tabs } from "./data";
+import { tabType, tabs } from "./data";
 import React, { useState } from "react";
+import { useLogout } from "@/modules/business-logic/lib/auth";
+import { useRouter } from "next/navigation";
+import { PAGE_URLS } from "@/constants/pages";
 
-const initialTab = Object.keys(tabs)[0];
+const initialTab = tabs[0];
 const Me = () => {
-  const [selectedTab, setSelectedTab] = useState<string>(initialTab);
+  const [selectedTab, setSelectedTab] = useState<tabType>(initialTab);
+  const { onLogout } = useLogout();
+  const router = useRouter();
 
   return (
     <main className="me-wrapper container">
@@ -15,34 +20,33 @@ const Me = () => {
       <div className="me">
         <nav className="me__tabs">
           <ul>
+            {tabs.map((t) => (
+              <li
+                key={t.key}
+                className={`${selectedTab.key === t.key ? "active" : ""}`}
+              >
+                <CommonButton style="none" onClick={() => setSelectedTab(t)}>
+                  <i className={t.labelIcon}></i>
+                  {t.label}
+                </CommonButton>
+              </li>
+            ))}
             <li>
               <CommonButton
                 style="none"
-                onClick={() => setSelectedTab(tabs.USER_DETAIL.label)}
+                onClick={() => {
+                  onLogout();
+                  router.push(PAGE_URLS.HOME);
+                }}
               >
-                Thông tin cá nhân
-              </CommonButton>
-            </li>
-            <li>
-              <CommonButton
-                style="none"
-                onClick={() => setSelectedTab(tabs.ORDER.label)}
-              >
-                Đơn hàng của bạn
-              </CommonButton>
-            </li>
-            <li>
-              <CommonButton
-                style="none"
-                onClick={() => setSelectedTab(tabs.CHANGE_PASSWORD.label)}
-              >
-                Đổi mật khẩu
+                <i className="fi fi-bs-power"></i>
+                Đăng xuất
               </CommonButton>
             </li>
           </ul>
         </nav>
         <div className="me__content">
-          {React.createElement(tabs[selectedTab].component)}
+          {React.createElement(selectedTab.component)}
         </div>
       </div>
     </main>

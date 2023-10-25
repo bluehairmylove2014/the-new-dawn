@@ -13,7 +13,7 @@ const StartGuideButton = () => {
       onClick={() => {
         isLoggedIn
           ? router.push(PAGE_URLS.ACTIVATE_DEVICE)
-          : router.push(PAGE_URLS.LOGIN);
+          : router.push(PAGE_URLS.AUTH);
       }}
     >
       Bắt đầu ngay

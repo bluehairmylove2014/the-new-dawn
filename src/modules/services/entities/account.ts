@@ -1,7 +1,6 @@
 export interface IAccount {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   password: string;
 }

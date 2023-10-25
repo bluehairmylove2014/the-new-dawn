@@ -35,17 +35,6 @@ const Header = () => {
   // const [selectedCurrency, setSelectedCurrency] = useState(moneyOptions[0]);
   // const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
   const userData = useGetUser();
-  // const userData = {
-  //   id: "user001",
-  //   name: "Nguyễn Ba Phương",
-  //   email: "nbphuong@gmail.com",
-  //   phoneNumber: "0337839146",
-  //   address: "1264 Kha Vạn Cân, Linh Trung, Thủ Đức, Hồ Chí Minh",
-  //   avatar:
-  //     "https://rialloer.sirv.com/the_new_dawn/users/user001/avatar/minh-pham-3s9s0sY666A-unsplash.jpg",
-  //   country: "vi",
-  //   rank: "free",
-  // };
   const dispatch = useDispatch();
   const { onChangeCurrencyFormat } = useChangeCurrencyFormat();
   const { showSuccess, showError } = useNotification();
@@ -192,7 +181,7 @@ const Header = () => {
               <li className="login-button">
                 <CommonButton
                   style="fill"
-                  onClick={() => router.push(PAGE_URLS.LOGIN)}
+                  onClick={() => router.push(PAGE_URLS.AUTH)}
                 >
                   Đăng nhập
                 </CommonButton>

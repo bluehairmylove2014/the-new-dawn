@@ -9,8 +9,7 @@ export const PAGE_URLS = {
   GUIDE: "/guide",
   ACTIVATE_DEVICE: "/active",
   APPLICATION: "/app",
-  LOGIN: "/auth/login",
-  REGISTER: "/auth/register",
+  AUTH: "/auth",
   PROVIDE_INFO: "checkout-info",
 };
 

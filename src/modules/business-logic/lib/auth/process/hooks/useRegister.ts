@@ -26,8 +26,6 @@ export const useRegister = (): UseRegisterType => {
       registerMutation
         .mutateAsync(params)
         .then((response: AuthenticationResponse) => {
-          // On success, if token is present, store it in session storage and update context
-
           if (response.token) {
             setToken(response.token);
             setRefreshToken(response.refreshToken);

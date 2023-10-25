@@ -13,7 +13,7 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
   // Methods
   const isNormalLayout = (pathname: string) => {
     switch (pathname) {
-      case PAGE_URLS.LOGIN:
+      case PAGE_URLS.AUTH:
       case PAGE_URLS.PROVIDE_INFO:
         return false;
       default:

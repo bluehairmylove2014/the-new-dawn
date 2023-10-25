@@ -1,5 +1,5 @@
 import { AuthProvider } from "../lib/auth/process/provider";
-import { CartProvider } from "../lib/cart/process/provider";
+// import { CartProvider } from "../lib/cart/process/provider";
 import { CurrencyProvider } from "../lib/currency/process/provider";
 import { UserProvider } from "../lib/user/process/provider";
 
@@ -22,11 +22,11 @@ export const providerConfig = [
     provider: CurrencyProvider,
     isActive: true,
   },
-  {
-    key: "cart",
-    provider: CartProvider,
-    isActive: true,
-  },
+  // {
+  //   key: "cart",
+  //   provider: CartProvider,
+  //   isActive: false,
+  // },
   {
     key: "auth",
     provider: AuthProvider,

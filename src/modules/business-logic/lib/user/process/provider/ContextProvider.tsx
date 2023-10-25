@@ -2,6 +2,7 @@
 import React, { useEffect, useReducer } from "react";
 import { UserContext } from "../context/userContext";
 import { userReducer } from "../context/reducer";
+import { useFetchUser } from "../hooks";
 
 type ContextProviderType = {
   children: React.ReactNode;
@@ -15,12 +16,22 @@ export const ContextProvider: React.FC<ContextProviderType> = ({
     userData: undefined,
     accessToken: accessToken,
   });
+  const { onFetchUser } = useFetchUser();
 
   useEffect(() => {
     dispatch({
       type: "SET_TOKEN_ACTION",
       payload: accessToken,
     });
+
+    if (accessToken) {
+      onFetchUser(accessToken).then((data) =>
+        dispatch({
+          type: "SET_USER_ACTION",
+          payload: data,
+        })
+      );
+    }
   }, [accessToken]);
 
   return (
