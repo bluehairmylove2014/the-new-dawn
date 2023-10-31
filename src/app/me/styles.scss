@@ -3,7 +3,10 @@
 .me-wrapper {
     width: 100%;
     height: fit-content;
-    margin-top: 2rem;
+
+    .breadcrumb__container {
+        margin: 1rem 0;
+    }
 
     .me {
         background-color: white;

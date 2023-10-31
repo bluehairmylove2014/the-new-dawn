@@ -6,9 +6,11 @@ const defaultSize = 50;
 const Empty = ({
   label,
   customSize,
+  customFontSize,
 }: {
   label: string;
   customSize?: number;
+  customFontSize?: string;
 }) => {
   return (
     <div className="empty">
@@ -18,7 +20,7 @@ const Empty = ({
         customWidth={customSize || defaultSize}
         customHeight={customSize || defaultSize}
       />
-      <p>{label}</p>
+      <p style={{ fontSize: customFontSize }}>{label}</p>
     </div>
   );
 };

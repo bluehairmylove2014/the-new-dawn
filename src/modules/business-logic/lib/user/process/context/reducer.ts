@@ -5,7 +5,6 @@ export const userReducer = (
   action: UserAction
 ): UserState => {
   try {
-    console.log("ACTION: ", action.type);
     switch (action.type) {
       case "SET_USER_ACTION":
         return {

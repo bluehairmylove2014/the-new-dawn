@@ -14,12 +14,13 @@ import { useSearchProduct } from "@/modules/business-logic/lib/search";
 import { searchProductParams } from "@/modules/services";
 import Empty from "@/components/atoms/Empty/Empty";
 import { CommonButton } from "@/components/atoms/CommonButton/CommonButton";
+import { calculateMaxPage } from "@/utils/helpers";
 
 const budgetFilterLimit = {
   min: 0,
   max: 100000000,
 };
-
+const maxElementPerPage = 6;
 const Shop = () => {
   const [paginationState, setPaginationState] = useState<{
     currentPage: number;
@@ -70,6 +71,16 @@ const Shop = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterSelected, sortSelected]);
 
+  useEffect(() => {
+    if (Array.isArray(products)) {
+      setPaginationState({
+        ...paginationState,
+        maxPage: calculateMaxPage(products, maxElementPerPage),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [products]);
+
   return (
     <div className="shop container">
       <Link href={""} className="shop__banner">
@@ -81,16 +92,35 @@ const Shop = () => {
           <p className="search-result">Hiển thị 6 trong 23 kết quả</p>
         </div>
         <div className="row">
-          <form className="search-box">
+          <form
+            className="search-box"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearch();
+            }}
+          >
+            <button type="submit">
+              <i className="fi fi-rr-search"></i>
+            </button>
             <label htmlFor="shop-search">Tìm kiếm sản phẩm...</label>
             <input
               type="text"
               name="search"
               id="shop-search"
-              onChange={(e) => (searchKeys.current = e.target.value.trim())}
+              onChange={(e) => {
+                const value = e.target.value.trim();
+                searchKeys.current = value;
+                const labelEle = e.target.parentNode?.querySelector("label");
+                if (!labelEle) return;
+                if (value.length > 0) {
+                  labelEle.style.display = "none";
+                } else {
+                  labelEle.style.display = "block";
+                }
+              }}
               onKeyDown={(e) => {
-                console.log("KEY: ", e.key);
                 if (e.key === "Enter") {
+                  e.preventDefault();
                   handleSearch();
                 }
               }}

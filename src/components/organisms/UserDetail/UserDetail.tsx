@@ -94,16 +94,9 @@ const UserDetail = () => {
                 <AuthInput
                   name={"fullName"}
                   label={""}
-                  type="text"
+                  type="FULL_NAME"
                   control={control}
                   placeHolders="..."
-                  rules={{
-                    required: "Tên không được để trống",
-                    maxLength: {
-                      value: 125,
-                      message: "Họ tên không được quá 125 ký tự",
-                    },
-                  }}
                   onChange={(value) =>
                     checkUserDataIntegrity("fullName", value)
                   }
@@ -116,15 +109,9 @@ const UserDetail = () => {
                 <AuthInput
                   name={"phoneNumber"}
                   label={""}
-                  type="text"
+                  type="PHONE_NUMBER"
                   control={control}
                   placeHolders="Chưa thiết đặt"
-                  rules={{
-                    pattern: {
-                      value: ValidateRegex.phoneNumber,
-                      message: "Số điện thoại không hợp lệ",
-                    },
-                  }}
                   onChange={(value) =>
                     checkUserDataIntegrity("phoneNumber", value)
                   }

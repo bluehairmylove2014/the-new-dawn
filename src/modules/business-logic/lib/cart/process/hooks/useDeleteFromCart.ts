@@ -77,7 +77,7 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
           } else {
             decreaseItemQuantityLocalStorage(params.productId, params.quantity);
             setIsLoading(false);
-            resolve("Delete from cart success");
+            resolve("Đã giảm số lượng thành công");
           }
         } else {
           onDeleteItem(params.productId)
@@ -133,7 +133,7 @@ export const useDeleteFromCart = (): UseDeleteFromType => {
         } else {
           deleteFromCartLocalStorage(productID);
           setIsLoading(false);
-          resolve("Delete from cart success");
+          resolve("Đã xoá sản phẩm khỏi giỏ hàng");
         }
       }
     );

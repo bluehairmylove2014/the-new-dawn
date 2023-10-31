@@ -6,17 +6,19 @@ export const updateAccountUrl = "/v1/auth/login-social";
 // SEARCH
 export const searchProductsUrl = "/v1/search/product";
 // CART
-export const addToCartUrl = "/v1/cart/addToCart";
-export const updateCartUrl = "/v1/cart/updateCart";
-export const deleteFromCartUrl = "/v1/cart/deleteFromCart";
-export const decreaseItemQuantityUrl = "/v1/cart/decreaseItemQuantity";
-export const clearCartUrl = "/v1/cart/clearCart";
-export const getCartUrl = "/v1/cart/getCart";
+export const addToCartUrl = "/v1/cart/add";
+export const updateCartUrl = "/v1/cart/update";
+export const deleteFromCartUrl = "/v1/cart/delete";
+export const decreaseItemQuantityUrl = "/v1/cart/decrease";
+export const clearCartUrl = "/v1/cart/clear";
+export const getCartUrl = "/v1/cart/get";
 // PRODUCT
 export const getProductUrl = "/v1/product/detail";
 export const getHotProductUrl = "/v1/product/hot-product";
 // USER
 export const getUserUrl = "/v1/user/get-detail";
+// COUPON
+export const getCouponUrl = "/v1/coupon/get";
 
 export const exchangeratesapi = "http://api.exchangeratesapi.io/v1";
 export const exchangeratesGetLatestPath = "/latest";

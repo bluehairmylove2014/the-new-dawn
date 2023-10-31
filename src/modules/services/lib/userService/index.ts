@@ -11,20 +11,20 @@ export class UserService extends Services {
     this.abortController = new AbortController();
     try {
       if (!token) return undefined;
-      const response = await this.fetchApi<
-        typeof getUserResponseSchema,
-        getUserResponse
-      >({
-        method: "GET",
-        url: getUserUrl,
-        schema: getUserResponseSchema,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        signal: this.abortController.signal,
-        transformResponse: (res) => res,
-      });
-      return response;
+      else
+        return await this.fetchApi<
+          typeof getUserResponseSchema,
+          getUserResponse
+        >({
+          method: "GET",
+          url: getUserUrl,
+          schema: getUserResponseSchema,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          signal: this.abortController.signal,
+          transformResponse: (res) => res,
+        });
     } catch (error) {
       console.log("ERROR: ", error);
       throw this.handleError(error);

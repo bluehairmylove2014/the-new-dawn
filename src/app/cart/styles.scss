@@ -1,7 +1,7 @@
 @import '@/app/mixins.scss';
 
-.cart-wrapper {
-    margin: 2rem 0;
+.cart-wrapper .breadcrumb__container {
+    margin: 1rem 0;
 }
 
 .cart {
@@ -20,9 +20,33 @@
     }
 
     .cart__items,
-    .cart__total {
+    .cart__total,
+    .cart__loader,
+    .cart__empty {
         width: 100%;
         height: fit-content;
+    }
+
+    .cart__loader,
+    .cart__empty {
+        margin: 1rem 0;
+        min-height: 150px;
+        grid-column: 1 /span 2;
+    }
+
+    .cart__empty {
+        // direction - justify content - align items - flex wrap
+        @include dflex(column, center, center, nowrap);
+        font-size: 0.75rem;
+
+        .empty__navigation-btn {
+            min-width: 200px;
+            max-width: 300px;
+            margin-top: 1rem;
+            height: 35px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
     }
 
     .cart__items {
@@ -36,6 +60,7 @@
         }
 
         .items-wrapper {
+
             .item {
                 position: relative;
                 width: 100%;
@@ -175,7 +200,7 @@
                 label {
                     position: absolute;
                     top: 50%;
-                    left: 20px;
+                    left: 21px;
                     opacity: 0.75;
                     font-size: 0.75rem;
                     transform: translateY(-50%);

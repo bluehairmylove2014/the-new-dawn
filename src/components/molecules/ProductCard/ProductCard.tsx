@@ -8,6 +8,7 @@ import { PAGE_URLS } from "@/constants/pages";
 import { calculateDiscountedPrice } from "@/utils/helpers";
 import { useAddToCart } from "@/modules/business-logic/lib/cart";
 import { useNotification } from "../Notification/Notification";
+import { PRODUCT_LOADER } from "@/constants/base64img";
 
 type SIZE = "small" | "medium" | "large";
 const ProductCard = ({
@@ -41,9 +42,12 @@ const ProductCard = ({
       <div className="card__header">
         <div className="card__image">
           <Image
+            // src={productData.productThumbnail + `?v=${Math.random()}`}
             src={productData.productThumbnail}
             alt={productData.productName}
             fill
+            placeholder="blur"
+            blurDataURL={PRODUCT_LOADER}
             priority
           />
         </div>

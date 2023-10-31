@@ -12,7 +12,7 @@
         height: 50px;
         border-radius: 50%;
         background: conic-gradient(#0000 10%, var(--saffron-mango));
-        -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+        // -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
         animation: common-loader-animation 1s infinite linear;
 
         @keyframes common-loader-animation {

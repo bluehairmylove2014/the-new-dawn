@@ -28,7 +28,7 @@ const QuantityHandler = ({ productData }: { productData: IProductDetail }) => {
         <Quantity
           quantity={qty}
           onChangeQuantity={(quantity: number) => {
-            if (quantity >= 0) {
+            if (quantity > 0) {
               setQty(quantity);
             }
           }}
@@ -38,10 +38,10 @@ const QuantityHandler = ({ productData }: { productData: IProductDetail }) => {
         <></>
       ) : (
         <div className="content__interact-wrapper">
-          <div className="button-wrapper">
+          <div className="button-wrapper buy">
             <BuyButton product={product} quantity={qty} />
           </div>
-          <div className="button-wrapper">
+          <div className="button-wrapper add-to-cart">
             <AddToCartButton product={product} quantity={qty} />
           </div>
         </div>

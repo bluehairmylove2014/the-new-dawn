@@ -52,16 +52,9 @@ const RegisterModel = ({
     {
       name: "email",
       label: "Email",
-      type: "email",
+      type: "EMAIL",
       control: control,
       placeHolders: "example@gmail.com",
-      rules: {
-        required: "Email không được để trống",
-        pattern: {
-          value: ValidateRegex.email,
-          message: "Email không hợp lệ",
-        },
-      },
       onChange: (value: string) => {
         if (isValidEmail(value)) {
           const copyRequirement = { ...requirements };
@@ -77,16 +70,9 @@ const RegisterModel = ({
     {
       name: "fullName",
       label: "Họ và tên",
-      type: "text",
+      type: "FULL_NAME",
       control: control,
       placeHolders: "Nguyễn Văn A",
-      rules: {
-        required: "Họ tên không được để trống",
-        maxLength: {
-          value: 125,
-          message: "Độ dài không quá 125 ký tự",
-        },
-      },
       onChange: (value: string) => {
         if (value.length > 0 && value.length < 125) {
           const copyRequirement = { ...requirements };
@@ -102,24 +88,9 @@ const RegisterModel = ({
     {
       name: "password",
       label: "Password",
-      type: "password",
+      type: "PASSWORD",
       control: control,
       placeHolders: "TheNewDawnVN123",
-      rules: {
-        required: "Mật khẩu không được để trống",
-        minLength: {
-          value: 6,
-          message: "Mật khẩu ít nhất 6 ký tự",
-        },
-        maxLength: {
-          value: 300,
-          message: "Mật khẩu tối đa 300 ký tự",
-        },
-        pattern: {
-          value: ValidateRegex.password,
-          message: "Mật khẩu phải có ít nhất 1 chữ in hoa",
-        },
-      },
       onChange: (value: string) => {
         if (value.length >= 6) {
           const copyRequirement = { ...requirements };
@@ -194,7 +165,6 @@ const RegisterModel = ({
             control={inp.control}
             placeHolders={inp.placeHolders}
             type={inp.type}
-            rules={inp.rules}
             onChange={inp.onChange}
           />
         </div>

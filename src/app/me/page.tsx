@@ -16,7 +16,9 @@ const Me = () => {
 
   return (
     <main className="me-wrapper container">
-      <Breadcrumb />
+      <div className="breadcrumb__container">
+        <Breadcrumb />
+      </div>
       <div className="me">
         <nav className="me__tabs">
           <ul>

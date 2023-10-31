@@ -7,21 +7,14 @@ const messageResponseSchema = z.object({
 
 // Schema for IProduct
 const productSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  price: z.number(),
-  imageSrc: z.string(),
-  description: z.string(),
-  imageAlt: z.string(),
-  href: z.string().optional(),
-  color: z.string().optional(),
-  measures: z.string().optional(),
-  wishlist: z.boolean().optional(),
-  date: z.number(),
-  category: z.string(),
-  categoryChild: z.string(),
-  sale: z.number().optional(),
-  page: z.number().optional(),
+  productId: z.number(),
+  productThumbnail: z.string().url(),
+  productName: z.string(),
+  productCategory: z.string(),
+  productPrice: z.number(),
+  productDiscount: z.number(),
+  productStock: z.number(),
+  productCreatedAt: z.string(),
 });
 
 // Schema for ICartItem

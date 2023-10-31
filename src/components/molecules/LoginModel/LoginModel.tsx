@@ -32,40 +32,20 @@ const LoginModel = ({
     {
       name: "email",
       label: "Email",
-      type: "email",
+      type: "EMAIL",
       control: control,
       placeHolders: "example@gmail.com",
-      rules: {
-        required: "Email không được để trống",
-        pattern: {
-          value: ValidateRegex.email,
-          message: "Email không hợp lệ",
-        },
-      },
-      onChange: (value: string) => {
-        console.log(value);
-      },
     },
     {
       name: "password",
       label: "Mật khẩu",
-      type: "password",
+      type: "PASSWORD",
       control: control,
-      placeHolders: "TheNewDawnVN123",
-      rules: {
-        required: "Mật khẩu không được để trống",
-        pattern: {
-          value: ValidateRegex.password,
-          message: "Mật khẩu không hợp lệ",
-        },
-      },
-      onChange: (value: string) => {
-        console.log(value);
-      },
+      placeHolders: "Nhập nhiều hơn 6 ký tự",
     },
   ];
   const { onLogin, isLoading } = useLogin();
-  const { showSuccess, showError } = useNotification();
+  const { showError } = useNotification();
   const router = useRouter();
 
   // Methods
@@ -113,7 +93,6 @@ const LoginModel = ({
             control={inp.control}
             placeHolders={inp.placeHolders}
             type={inp.type}
-            rules={inp.rules}
             onChange={inp.onChange}
           />
         </div>

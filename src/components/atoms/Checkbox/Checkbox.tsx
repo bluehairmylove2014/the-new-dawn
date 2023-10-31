@@ -4,13 +4,23 @@ import "./styles.scss";
 type checkboxType = {
   label: string;
   name: string;
+  defaultChecked?: boolean;
   radio?: boolean;
   radioName?: string;
   onCheck: (name: string, value: boolean) => void;
 };
-const Checkbox = ({ label, name, radio, radioName, onCheck }: checkboxType) => {
+const Checkbox = ({
+  label,
+  name,
+  defaultChecked,
+  radio,
+  radioName,
+  onCheck,
+}: checkboxType) => {
   const checkboxRef = useRef<HTMLDivElement>(null);
-  const [checkboxValue, setCheckboxValue] = useState<boolean | null>(null);
+  const [checkboxValue, setCheckboxValue] = useState<boolean | undefined>(
+    defaultChecked
+  );
 
   // Methods
   const handleCheckboxClick = () => {
@@ -37,6 +47,13 @@ const Checkbox = ({ label, name, radio, radioName, onCheck }: checkboxType) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkboxValue]);
+
+  useEffect(() => {
+    if (defaultChecked !== checkboxValue) {
+      setCheckboxValue(defaultChecked);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultChecked]);
 
   return (
     <div className="checkbox" onClick={handleCheckboxClick} ref={checkboxRef}>

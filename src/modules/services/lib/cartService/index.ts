@@ -30,6 +30,10 @@ export class CartService extends Services {
   addToCart = async (params: AddToCartParams): Promise<AddToCartResponse> => {
     this.abortController = new AbortController();
     try {
+      console.log("ADD TO CART: ", {
+        productId: params.item.productId,
+        quantity: params.quantity,
+      });
       const response = await this.fetchApi<
         typeof messageResponseSchema,
         AddToCartResponse
@@ -38,7 +42,7 @@ export class CartService extends Services {
         url: addToCartUrl,
         schema: messageResponseSchema,
         data: {
-          item: params.item,
+          productId: params.item.productId,
           quantity: params.quantity,
         },
         headers: {
@@ -57,6 +61,9 @@ export class CartService extends Services {
   ): Promise<UpdateCartResponse> => {
     this.abortController = new AbortController();
     try {
+      console.log("UPDATE CART: ", {
+        cart: params.cart.items || [],
+      });
       const response = await this.fetchApi<
         typeof messageResponseSchema,
         UpdateCartResponse
@@ -65,7 +72,7 @@ export class CartService extends Services {
         url: updateCartUrl,
         schema: messageResponseSchema,
         data: {
-          cart: params.cart,
+          cart: params.cart.items || [],
         },
         headers: {
           Authorization: `Bearer ${params.accessToken}`,
@@ -83,6 +90,9 @@ export class CartService extends Services {
   ): Promise<DeleteFromCartResponse> => {
     this.abortController = new AbortController();
     try {
+      console.log("DELETE FROM CART: ", {
+        productId: params.productId,
+      });
       const response = await this.fetchApi<
         typeof messageResponseSchema,
         DeleteFromCartResponse
@@ -109,6 +119,10 @@ export class CartService extends Services {
   ): Promise<MessageResponse> => {
     this.abortController = new AbortController();
     try {
+      console.log("DECREASE ITEM CART: ", {
+        productId: params.productId,
+        quantity: params.quantity,
+      });
       const response = await this.fetchApi<
         typeof messageResponseSchema,
         MessageResponse
@@ -134,6 +148,7 @@ export class CartService extends Services {
   clearCart = async (params: ClearCartParams): Promise<ClearCartResponse> => {
     this.abortController = new AbortController();
     try {
+      console.log("CLEAR CART");
       const response = await this.fetchApi<
         typeof messageResponseSchema,
         ClearCartResponse

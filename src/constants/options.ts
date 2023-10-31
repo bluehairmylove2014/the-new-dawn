@@ -9,12 +9,20 @@ export const FILTER_OPTIONS = {
       value: "table",
     },
     {
-      name: "Ghế công thái học",
+      name: "Ghế công nghệ",
       value: "chair",
     },
     {
       name: "Phụ kiện & trang trí",
       value: "other&decor",
+    },
+    {
+      name: "Camera",
+      value: "camera",
+    },
+    {
+      name: "Kính thực tế ảo",
+      value: "vr",
     },
   ],
 };
