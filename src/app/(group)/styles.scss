@@ -1,0 +1,229 @@
+@import '@/app/mixins.scss';
+
+.introduction__wrapper {
+    background-image: url('../../assets/bgs/meadow.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: calc(100vh - 110px);
+}
+
+.introduction {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    @include dflex(column, center, center, nowrap);
+    padding: 2rem 0;
+
+    .introduction__content,
+    .introduction__graphics {
+        width: 100%;
+    }
+
+    .introduction__content {
+        @include dflex(column, center, center, nowrap);
+        height: 40%;
+
+        small {
+            font-weight: 600;
+
+            span {
+                color: red
+            }
+        }
+
+        p {
+            margin: 10px 0 20px 0;
+            text-align: center;
+            max-width: 70%;
+        }
+
+        .content__button-wrapper {
+            width: 100%;
+            text-align: center;
+            @include dflex(row, center, center, nowrap);
+            gap: 15px;
+
+            .button-wrapper__shop,
+            .button-wrapper__app {
+                max-width: 200px;
+                height: 40px;
+                display: inline-block;
+            }
+        }
+    }
+
+    .introduction__graphics {
+        overflow: hidden;
+        position: relative;
+        height: 60%;
+
+        img {
+            position: absolute;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: auto !important;
+            height: 100% !important;
+            filter: drop-shadow(16px 10px 15px 0px rgba(0, 0, 0, 0.8));
+        }
+    }
+}
+
+.hot-products {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--dark-jungle-green);
+    // direction - justify content - align items - flex wrap
+    @include dflex(column, center, center, nowrap);
+
+    h2 {
+        margin-bottom: 3rem;
+        color: white;
+    }
+
+    .hot-products__list {
+        // direction - justify content - align items - flex wrap
+        @include dflex(row, space-evenly, flex-start, nowrap);
+        gap: 1rem;
+        height: fit-content;
+    }
+}
+
+.guide {
+    margin: 3rem auto 5rem auto;
+    width: 100%;
+
+    h2 {
+        margin-bottom: 2rem;
+    }
+
+    .guide__steps {
+        // columns - row - gap
+        @include dgrid(repeat(3, 1fr), auto, 1rem);
+
+        .step {
+            // direction - justify content - align items - flex wrap
+            @include dflex(column, flex-start, center, nowrap);
+            text-align: center;
+            position: relative;
+
+            h3 {
+                margin: 0.5rem auto 0.5rem auto;
+            }
+
+            p {
+                max-width: 80%;
+            }
+
+            &:nth-child(2)::before,
+            &:nth-child(2)::after {
+                content: '';
+                background-image: url('../../assets/icons/right-arrow.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 2rem;
+                height: 30px;
+            }
+
+            &:nth-child(2)::before {
+                left: -1rem;
+            }
+
+            &:nth-child(2)::after {
+                right: -1rem;
+            }
+        }
+    }
+
+    .guide__button-wrapper {
+        margin: 2rem auto 1rem auto;
+        max-width: 200px;
+        height: 40px;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+}
+
+.information {
+    position: relative;
+    background-image: url('../../assets/bgs/sky-background.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: fit-content;
+
+    .information__article {
+        // columns - row - gap
+        @include dgrid(repeat(2, 1fr), auto, 2rem);
+        min-height: 400px;
+        width: 100%;
+        margin-bottom: 5rem;
+
+        .article__images--left,
+        .article__images--right {
+            $part-size: 47%;
+            position: relative;
+            width: 100%;
+
+            .image {
+                position: absolute;
+                width: $part-size;
+                height: 80%;
+                border-radius: 5px;
+                overflow: hidden;
+
+                img {
+                    object-fit: cover;
+                }
+
+                &:nth-child(1) {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                &:nth-child(2) {
+                    top: 0;
+                    right: 0;
+                }
+            }
+
+            .images__sort-description {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: $part-size;
+            }
+        }
+
+        .article__content--left,
+        .article__content--right {
+            strong {
+                color: red;
+                font-size: 0.75rem;
+            }
+
+            p {
+                margin: 0.5rem 0;
+            }
+
+            .content__action-button {
+                max-width: 200px;
+                height: 40px;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+        }
+
+        .article__images--left {
+            grid-column: 1;
+        }
+
+        .article__images--right {
+            grid-column: 2;
+        }
+    }
+}

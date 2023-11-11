@@ -1,0 +1,165 @@
+@import '@/app/mixins.scss';
+
+.shop {
+    margin-top: 2rem;
+    // columns - row - gap
+    @include dgrid(20% calc(80% - 2rem), auto auto, 2rem);
+
+    .shop__banner {
+        grid-column: 1;
+        grid-row: 1;
+        width: 100%;
+        background-color: var(--chardonnay);
+        color: var(--dark);
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 1rem 1.6rem;
+        text-align: justify;
+        transition: background-color 0.1s ease-in-out;
+
+        &:hover {
+            background-color: var(--saffron-mango);
+        }
+    }
+
+    .shop__interact {
+        grid-column: 2;
+        grid-row: 1;
+        // direction - justify content - align items - flex wrap
+        @include dflex(column, space-between, flex-start, nowrap);
+
+        .row {
+            width: 100%;
+            // direction - justify content - align items - flex wrap
+            @include dflex(row, space-between, center, nowrap);
+        }
+
+        .search-result {
+            font-size: 0.6rem;
+            font-weight: 600;
+            opacity: 0.6;
+        }
+
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+            width: 100%;
+            height: 50px;
+            border: 1px solid var(--soft-peach);
+            border-radius: 12px;
+            margin-top: 0.5rem;
+            box-shadow: 0px 3px 7px -2px rgba(0, 0, 0, 0.25);
+            background-color: var(--light);
+            $fontSize: 0.75rem;
+
+            input {
+                width: 100%;
+                height: 100%;
+                border: none;
+                outline: none;
+                background-color: transparent;
+                padding: 0 49px;
+                font-size: $fontSize;
+            }
+
+            button,
+            label {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: $fontSize;
+                opacity: 0.75;
+            }
+
+            button {
+                left: 22px;
+                cursor: pointer;
+
+                i {
+                    bottom: -2px
+                }
+            }
+
+            label {
+                left: 50px;
+                pointer-events: none;
+            }
+        }
+    }
+
+    .shop__sort-and-filter {
+        grid-column: 1;
+        grid-row: 2;
+        width: 100%;
+
+        h5 {
+            margin-bottom: 1rem;
+
+            i {
+                margin-right: 8px;
+                font-size: 0.75rem;
+            }
+        }
+
+        .options-group {
+            width: 100%;
+
+            h6 {
+                width: 100%;
+                margin: 1rem 0 0.5rem 0;
+            }
+
+            h6:not(:first-child) {
+                padding-top: 0.5rem;
+                border-top: 1px solid var(--gainsboro);
+            }
+
+            // direction - justify content - align items - flex wrap
+            @include dflex(column, flex-start, flex-start, nowrap);
+            gap: 8px;
+
+            .budget__slider {
+                width: calc(100% - 15px);
+            }
+
+            .budget__preview {
+                width: 100%;
+                font-size: 0.6rem;
+                // direction - justify content - align items - flex wrap
+                @include dflex(row, space-between, center, wrap);
+            }
+
+            .budget__submit-btn {
+                width: 100%;
+                height: 28px;
+
+                button {
+                    font-size: 0.6rem;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .shop__product-list {
+        grid-column: 2;
+        grid-row: 2;
+        // columns - row - gap
+        @include dgrid(repeat(3, 1fr), auto auto, 1rem);
+    }
+
+    .pagination-wrapper {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        margin-top: 1rem;
+    }
+
+    // Loader
+    .common-loader__wrapper,
+    .empty {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+}
